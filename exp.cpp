@@ -8,35 +8,19 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    long long k,l1,r1,l2,r2;
-    cin>>k>>l1>>r1>>l2>>r2;
-
-    vector<long long> powers;
-    long long p = 1;
-
-    while (p <= r2) {
-        powers.push_back(p);
-        if (p > r2 / k) break;
-        p *= k;
+    queue<int> q;
+    for(int i=1;i<6;i++) {
+        q.push(i);
     }
 
-    long long cnt = 0;
-
-    for (long long pow : powers) {
-
-        long long minx = max(l1, (l2 + pow - 1ll) / pow);
-        long long maxx = min(r1, r2 / pow);
-
-        if (minx <= maxx) {
-            cnt += maxx- minx + 1ll;
-        }
+    while(!q.empty()) {
+        cout<<q.front()<<" ";
+        q.pop();
     }
-
-    cout<<cnt<<endl;
 }
