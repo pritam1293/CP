@@ -13,13 +13,17 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-
-
 void solve() {
-    for(int i=0;i<67;i++) {
-        if(i == 3) {
-            break;
-        }
-        cout<<i<<endl;
+    long long n;
+    cin>>n;
+    long long ans = 1;
+    long long val = 1;
+
+    while(n >= 4) {
+        ans += val;
+        val *= 2ll;
+        n /= 4ll;
     }
+    cout<<ans<<endl;
+
 }

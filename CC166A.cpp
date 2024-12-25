@@ -13,13 +13,20 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-
-
 void solve() {
-    for(int i=0;i<67;i++) {
-        if(i == 3) {
-            break;
-        }
-        cout<<i<<endl;
+    int n;
+    cin>>n;
+    vector<int> a(n);
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
     }
+    map<int,int> mp;
+    for(int i=0;i<n;i++) {
+        mp[a[i]] = i+1;
+    }
+    long long ans = 0;
+    for(auto it : mp) {
+        ans += (long long)it.second;
+    }
+    cout<<ans<<endl;
 }

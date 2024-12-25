@@ -61,7 +61,7 @@ void solve() {
         string temp;
         for(int j=i;j<n;j++) {
             temp += s[j];
-            if(isAlternate(temp.size() , temp)) cnt += 1ll;
+            if(isAlternate(temp.size() , tem-p)) cnt += 1ll;
         }
     }
     cout<<cnt<<endl;
