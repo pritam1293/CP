@@ -17,14 +17,14 @@ void solve() {
     int n,k;
     cin>>n>>k;
     vector<int> a(n);
-    map<int,int> mp;
+    map<int,int> mp;//frequency of each number
     for(int i=0;i<n;i++) {
         cin>>a[i];
         mp[a[i]]++;
     }
     int unique = mp.size();
-    int freq = -1;
-    int val;
+    int freq = -1;//highest frequency
+    int val;//which number has the highest frequency
     for(auto it : mp) {
         if(it.second > freq) {
             val = it.first;
@@ -32,16 +32,22 @@ void solve() {
         }
     }
     priority_queue<int,vector<int>,greater<int>> pq;
-    int one = false;
+    /*pq for other frequencies of the numbers and a boolean is taken for not to
+    take the highest frequency value in the pq*/
 
     for(auto it : mp) {
-        if(it.first == val && !one) {
-            one = true;
+        if(it.first == val) {
+            // one = true;
             continue;
         } 
         pq.push(it.second);
     }
-
+    /*
+    the idea is to convert the numbers to the "val"
+    (the number which has highest frequecny)as much as i can, and 
+    by doing this, it reduce the no. of unique numbers in the
+    array and the final ans will be the no. of unique numbers present in the array. 
+    */
     while(k > 0 && !pq.empty()) {
         if( k >= pq.top()) {
             k -= pq.top();

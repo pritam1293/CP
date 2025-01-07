@@ -8,44 +8,37 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-int countPalindromicSubsequence(string s) {
-    vector<int> first(26,-1) , last(26,-1);
-    for(int i=0;i<s.size();i++) {
-        int idx = s[i]-'a';
-        if(first[idx] == -1) {
-            first[idx] = i;
-        }
-        else {
-            last[idx] = i;
-        }
+bool substring(string &s , string &main) {
+    int n = main.size() , m = s.size();
+    for(int i=0;i<=n-m;i++) {
+        if(main.substr(i,m) == s) return true;
     }
+    return false;
+}
 
-    // for(int i=0;i<26;i++) {
-    //     cout<< (char)(i+'a')<<"  "<<first[i]<<" " <<last[i]<<endl;
-    // }
-    // cout<<endl;
-
-    int cnt = 0;
-    for(int i=0;i<26;i++) {
-        if(last[i] != -1) {
-            set<char> st;
-            for(int idx = first[i]+1;idx <= last[i]-1;idx++) {
-                st.insert(s[idx]);
+vector<string> stringMatching(vector<string>& w) {
+    int n = w.size();
+    vector<string> ans;
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<n;j++) {
+            if(i == j) continue;
+            if(w[i].size() <= w[j].size() && substring(w[i] , w[j])) {
+                ans.push_back(w[i]);
+                break;
             }
-            cnt += st.size();
-            cout<<st.size()<<endl;
         }
     }
-    cout<<endl;
-    return cnt;
+    return ans;
 }
 
 void solve() {
-    string s = "bbcbaba";
-    cout<<countPalindromicSubsequence(s);
+    vector<string> w = {"leetcoder","leetcode","od","hamlet","am"};
+    for(auto it : stringMatching(w)) {
+        cout<<it<<endl;
+    }
 }
