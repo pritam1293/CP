@@ -13,76 +13,46 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-void checkMoves(int row, int col, int &ans, int moves, vector<vector<bool>> &vis, vector<string> &mat, bool vertical) {
-    if (mat[row][col] == 'G') {
-        ans = min(moves, ans);
-        return;
-    }
-
-    vis[row][col] = true;
-    int n = mat.size(), m = mat[0].size();
-    int nr, nc;
-    if (vertical) {
-        nr = row + 1;
-        nc = col;
-        if (nr >= 0 && nc >= 0 && nr < n && nc < m && !vis[nr][nc] && mat[nr][nc] != '#') {
-            checkMoves(nr, nc, ans, moves + 1, vis, mat, !vertical);
-        }
-
-        nr = row - 1;
-        nc = col;
-        if (nr >= 0 && nc >= 0 && nr < n && nc < m && !vis[nr][nc] && mat[nr][nc] != '#') {
-            checkMoves(nr, nc, ans, moves + 1, vis, mat, !vertical);
-        }
-    }
-    else {
-        nr = row;
-        nc = col + 1;
-        if (nr >= 0 && nc >= 0 && nr < n && nc < m && !vis[nr][nc] && mat[nr][nc] != '#') {
-            checkMoves(nr, nc, ans, moves + 1, vis, mat, !vertical);
-        }
-
-        nr = row;
-        nc = col - 1;
-        if (nr >= 0 && nc >= 0 && nr < n && nc < m && !vis[nr][nc] && mat[nr][nc] != '#') {
-            checkMoves(nr, nc, ans, moves + 1, vis, mat, !vertical);
-        }
-    }
-    vis[row][col] = false; // Backtrack
-}
+int inf = 1e9;
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    vector<string> mat(n);
-    for (int i = 0; i < n; i++) {
-        cin >> mat[i];
+    int h,w;
+    cin>>h>>w;
+    int n;
+    cin>>n;
+    vector<string> s(n);
+    for(int i=0;i<n;i++) {
+        cin>>s[i];
     }
 
-    int x = -1, y = -1;
-    bool found = false;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if (mat[i][j] == 'S') {
-                x = i;
-                y = j;
-                found = true;
-                break;
+    int si,sj,gi,gj;
+    for(int i=0;i<h;i++) {
+        for(int j=0;j<w;j++) {
+            if(s[i][j] == 'S') {
+                si = i;
+                sj = j;
+            }
+            else if(s[i][j] == 'G') {
+                gi = i;
+                gj = j;
             }
         }
-        if (found) break;
     }
 
-    int ans = INT_MAX;
-    vector<vector<bool>> vis(n, vector<bool>(m, false));
+    int ans = inf;
+    vector<vector<pair<int,int>>> dir(2);
+    dir[0] = {{0,1} , {0,-1}};
+    dir[1] = {{1,0} , {-1,0}};
 
-    checkMoves(x, y, ans, 0, vis, mat, false); // vertical = false
-    checkMoves(x, y, ans, 0, vis, mat, true);  // vertical = true
+    for(int i=0;i<2;i++) {
+        vector<vector<int>> d(h,vector<int>(w , inf));
+        d[si][sj] = 0;
+        queue<pair<int,int>> q;
+        q.push(si,sj);
 
-    if (ans == INT_MAX) {
-        cout << "-1" << endl; // No path found
-    }
-    else {
-        cout << ans << endl;
+        while(!q.empty()) {
+            auto [i,j] = q.front();
+            q.pop();
+        }
     }
 }

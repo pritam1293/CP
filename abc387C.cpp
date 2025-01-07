@@ -8,7 +8,7 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }

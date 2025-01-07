@@ -2,42 +2,49 @@
 
 using namespace std;
 
-using ll = long long;
-
-ll int_pow(ll a, ll t) {
-    ll res = 1;
-    for (int i = 0; i < t; i++) res *= a;
-    return res;
-}
-
-ll count(ll r) {
-    vector<int> digit;
-    while (r) {
-        digit.push_back(r % 10);
-        r /= 10;
-    }
-    reverse(digit.begin(), digit.end());
-    int n = digit.size();
-    ll res = 0;
-    for (int i = 1; i <= n; i++) {
-        if (i == n) {
-            res++;
-            break;
-        }
-        res += int_pow(digit[0], n - 1 - i) * min(digit[0], digit[i]);
-        if (digit[i] >= digit[0]) break;
-    }
-    for (int i = 0; i < n; i++) {
-        int mx = (i ? 9 : digit[0] - 1);
-        for (int j = 1; j <= mx; j++) {
-            res += int_pow(j, n - 1 - i);
-        }
-    }
-    return res;
-}
+const int inf = 1e9;
 
 int main() {
-    ll l, r;
-    cin >> l >> r;
-    cout << count(r) - count(l - 1) << endl;
+    int h, w;
+    cin >> h >> w;
+    vector<string> s(h);
+    for (int i = 0; i < h; i++) cin >> s[i];
+    int si, sj, gi, gj;
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            if (s[i][j] == 'S') {
+                si = i, sj = j;
+            } else if (s[i][j] == 'G') {
+                gi = i, gj = j;
+            }
+        }
+    }
+    int ans = inf;
+    vector<vector<pair<int, int>>> moves(2);
+    moves[0] = {{0, 1},
+                {0, -1}};
+    moves[1] = {{1,  0},
+                {-1, 0}};
+    for (int p = 0; p < 2; p++) {
+        vector d(h, vector<int>(w, inf));
+        d[si][sj] = 0;
+        queue<pair<int, int>> q;
+        q.emplace(si, sj);
+        while (!q.empty()) {
+            auto [i, j] = q.front();
+            q.pop();
+            for (auto [di, dj]: moves[(i + j + p) & 1]) {
+                int ni = i + di, nj = j + dj;
+                if (ni < 0 or ni >= h or nj < 0 or nj >= w) continue;
+                if (s[ni][nj] == '#') continue;
+                if (d[ni][nj] == inf) {
+                    d[ni][nj] = d[i][j] + 1;
+                    q.emplace(ni, nj);
+                }
+            }
+        }
+        ans = min(ans, d[gi][gj]);
+    }
+    if (ans == inf) ans = -1;
+    cout << ans << endl;
 }
