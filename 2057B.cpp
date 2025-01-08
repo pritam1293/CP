@@ -22,7 +22,7 @@ void solve() {
         cin>>a[i];
         mp[a[i]]++;
     }
-    int unique = mp.size();
+    int unique = mp.size();//no. of unique numbers in the array
     int freq = -1;//highest frequency
     int val;//which number has the highest frequency
     for(auto it : mp) {
@@ -32,18 +32,16 @@ void solve() {
         }
     }
     priority_queue<int,vector<int>,greater<int>> pq;
-    /*pq for other frequencies of the numbers and a boolean is taken for not to
-    take the highest frequency value in the pq*/
+    /*pq for other frequencies of other numbers*/
 
     for(auto it : mp) {
         if(it.first == val) {
-            // one = true;
             continue;
         } 
         pq.push(it.second);
     }
     /*
-    the idea is to convert the numbers to the "val"
+    the idea is to convert the numbers in the array to the "val"
     (the number which has highest frequecny)as much as i can, and 
     by doing this, it reduce the no. of unique numbers in the
     array and the final ans will be the no. of unique numbers present in the array. 
@@ -56,5 +54,4 @@ void solve() {
         }
     }
     cout<<unique<<endl;
-    // cout<<val<<endl;
 }
