@@ -52,6 +52,9 @@ void solve() {
             pq.pop();
             unique--;
         }
+        else{
+            break;
+        }
     }
     cout<<unique<<endl;
 }

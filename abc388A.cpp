@@ -8,13 +8,13 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    int a,b,c;
-    cin>>a>>b>>c;
-    cout<<((a^b) + (b^c) + (c^a))<<endl;
+    string s;
+    cin>>s;
+    cout<<s[0]<<"UPC"<<endl;
 }

@@ -13,30 +13,16 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-int h = 1;
-int w = 1;
-int inf = 0;
-
 void solve() {
-    // long long n,b,c;
-    // cin>>n>>b>>c;
-
-    // if(b == 0ll) {
-    //     if(c == n-1ll || c == n-2ll) {
-    //         cout<< n-1ll <<endl;
-    //     }
-    //     else if(c >= n) {
-    //         cout<<n<<endl;
-    //     }
-    //     else {
-    //         cout<<-1<<endl;
-    //     }
-    //     return;
-    // }
-
-    // long long present = (n-1ll-c+b) / b;
+    // int l = 0 , r = 1073741823;
+    // int p2 = log2(r);
+    // int num = pow(2,p2);
+    // int a = 0;
+    // int b = num-1;
+    // int c = num;
+    int a,b,c;
+    cin>>a>>b>>c;
+    cout<<((a^b) + (b^c) + (c^a))<<endl;
     
-    // cout<<n-max(0ll , present)<<endl;
-        vector d(h, vector<int>(w, inf));
-
+    // cout<<"0 "<<num-1<<" "<<num<<endl;
 }
