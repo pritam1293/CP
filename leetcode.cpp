@@ -8,37 +8,49 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-bool substring(string &s , string &main) {
-    int n = main.size() , m = s.size();
-    for(int i=0;i<=n-m;i++) {
-        if(main.substr(i,m) == s) return true;
+int minXor(int n , int m) {
+    int cnt = 0;
+    while(m){
+        if(m % 2) cnt++;
+        m /= 2;
     }
-    return false;
-}
-
-vector<string> stringMatching(vector<string>& w) {
-    int n = w.size();
-    vector<string> ans;
-    for(int i=0;i<n;i++) {
-        for(int j=0;j<n;j++) {
-            if(i == j) continue;
-            if(w[i].size() <= w[j].size() && substring(w[i] , w[j])) {
-                ans.push_back(w[i]);
-                break;
-            }
+    vector<int> num(31);
+    int i=31;
+    while(n) {
+        if(n % 2) num[i] = 1;
+        n /= 2;
+        i--;
+    }
+    vector<int> ans(31);
+    for(int j=0;j<31 && cnt;j++) {
+        if(num[j] == 1 && cnt) {
+            ans[j] = 1;
+            cnt--;
         }
     }
-    return ans;
+    for(int j=30;j>=0;j--) {
+        if(cnt && ans[j] == 0) {
+            ans[j] = 1;
+            cnt--;
+        }
+    }
+    reverse(ans.begin(),ans.end());
+    int answer = 0;
+    for(int j=0;j<31;j++) {
+        answer += ans[j] * pow(2,j);
+    }
+    return answer;
+    // return i;
 }
 
 void solve() {
-    vector<string> w = {"leetcoder","leetcode","od","hamlet","am"};
-    for(auto it : stringMatching(w)) {
-        cout<<it<<endl;
-    }
+    int n,m;
+    cin>>n>>m;
+    cout<<minXor(n,m)<<endl;
+    // cout<<(1<<30);
 }
