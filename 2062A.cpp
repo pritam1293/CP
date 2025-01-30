@@ -1,8 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
 void solve();
-int32_t main() {
+int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
@@ -15,17 +14,11 @@ int32_t main() {
 }
 
 void solve() {
-    int n,x;
-    cin>>n>>x;
-    vector<int> a(n);
-    for(int i=0;i<n;i++) {
-        cin>>a[i];
+    string s;
+    cin>>s;
+    int cnt = 0;
+    for(char c : s) {
+        if(c == '1') cnt++;
     }
-    sort(a.rbegin(),a.rend());
-    int health = 0;
-    for(int i=0;i<n;i++) {
-        if(health >= a[i] + i*x) continue;
-        else health = a[i] + i*x;
-    }
-    cout<<health<<endl;
+    cout<<cnt<<endl;
 }

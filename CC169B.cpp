@@ -16,21 +16,25 @@ int main() {
 void solve() {
     int n;
     cin>>n;
-    vector<long long> a(n),dp(n);
-    for(int i=0;i<n;i++) {
+    vector<int> a(n+1);
+    for(int i=1;i<=n;i++) {
         cin>>a[i];
     }
-    long long ans = 0 , pxor = 0;
-    map<long long,long long> mp;
-    for(int i=0;i<n;i++) {
-        pxor ^= a[i];
-        if(mp.find(pxor) != mp.end()) {
-            dp[i] = mp[pxor] + a[i];
+    for(int i=1;i<=n;i++) {
+        int j = i;
+        int cnt1 = 0 , cnt2 = 0;
+        while(j) {
+            if(j % 2) cnt1++;
+            j /= 2;
         }
-        else dp[i] = a[i];
-        int temp = pxor ^ a[i];
-        mp[temp] = dp[i];
-        ans = max(ans , dp[i]);
+        while(a[i]) {
+            if(a[i] % 2) cnt2++;
+            a[i] /= 2;
+        }
+        if(cnt1 != cnt2) {
+            cout<<"NO"<<endl;
+            return;
+        }
     }
-    cout<<ans<<endl;
+    cout<<"YES"<<endl;
 }

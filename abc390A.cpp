@@ -1,31 +1,31 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
 void solve();
-int32_t main() {
+int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    int n,x;
-    cin>>n>>x;
-    vector<int> a(n);
-    for(int i=0;i<n;i++) {
+    vector<int> a(5);
+    for(int i=0;i<5;i++) {
         cin>>a[i];
     }
-    sort(a.rbegin(),a.rend());
-    int health = 0;
-    for(int i=0;i<n;i++) {
-        if(health >= a[i] + i*x) continue;
-        else health = a[i] + i*x;
+    vector<int> ans = {1,2,3,4,5};
+    for(int i=1;i<5;i++) {
+        swap(a[i-1],a[i]);
+        if(a == ans) {
+            cout<<"Yes"<<endl;
+            return;
+        }
+        swap(a[i-1],a[i]);
     }
-    cout<<health<<endl;
+    cout<<"No"<<endl;
 }
