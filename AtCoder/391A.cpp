@@ -8,23 +8,22 @@ int main() {
     freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    int m,k;
-    cin>>m>>k;
+    map<string,string> mp;
+    mp["S"] = "N";
+    mp["N"] = "S";
+    mp["E"] = "W";
+    mp["W"] = "E";
+    mp["SE"] = "NW";
+    mp["SW"] = "NE";
+    mp["NE"] = "SW";
+    mp["NW"] = "SE";
     string s;
     cin>>s;
-    int swiss = 0;
-    for(int i=0;i<m;i++) {
-        if(s[i] == 'S') swiss++;
-    }
-    if(swiss >= k || m >= k) {
-        cout<<m<<endl;
-        return;
-    }
-    cout<<m+k-swiss-1<<endl;
+    cout<<mp[s]<<endl;
 }

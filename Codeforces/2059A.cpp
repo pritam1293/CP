@@ -14,17 +14,21 @@ int main() {
 }
 
 void solve() {
-    int m,k;
-    cin>>m>>k;
-    string s;
-    cin>>s;
-    int swiss = 0;
-    for(int i=0;i<m;i++) {
-        if(s[i] == 'S') swiss++;
+    int n;
+    cin>>n;
+    vector<int> a(n),b(n);
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
     }
-    if(swiss >= k || m >= k) {
-        cout<<m<<endl;
-        return;
+    for(int i=0;i<n;i++) {
+        cin>>b[i];
     }
-    cout<<m+k-swiss-1<<endl;
+    set<int> st;
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<n;j++) {
+            int num = a[i]+b[j];
+            if(st.find(num) == st.end()) st.insert(num);
+        }
+    }
+    cout<<(st.size() >= 3 ? "YES" : "NO")<<endl;
 }
