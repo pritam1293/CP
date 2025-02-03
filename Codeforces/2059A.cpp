@@ -17,18 +17,14 @@ void solve() {
     int n;
     cin>>n;
     vector<int> a(n),b(n);
+    set<int> sa,sb;
     for(int i=0;i<n;i++) {
         cin>>a[i];
+        sa.insert(a[i]);
     }
     for(int i=0;i<n;i++) {
         cin>>b[i];
+        sb.insert(b[i]);
     }
-    set<int> st;
-    for(int i=0;i<n;i++) {
-        for(int j=0;j<n;j++) {
-            int num = a[i]+b[j];
-            if(st.find(num) == st.end()) st.insert(num);
-        }
-    }
-    cout<<(st.size() >= 3 ? "YES" : "NO")<<endl;
+    cout<<(sa.size() + sb.size() >= 4 ? "YES" : "NO")<<endl;
 }
