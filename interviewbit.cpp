@@ -13,14 +13,26 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-void solve(int &num) {
-    for(int i=1;i<3;i++) {
-        num += i;
+int count(int n, int m, string &a, string &b, vector<vector<int>> &dp) {
+    if(m == 0) return 1;
+    if(n == 0) return 0;
+
+    if(dp[n][m] == -1) {
+        if(a[n-1] == b[m-1]) {
+            dp[n][m] = count(n-1, m-1, a, b, dp) + count(n-1, m, a, b, dp);
+        }
+        else {
+            dp[n][m] = count(n-1, m, a, b, dp);
+        }
     }
-} 
+    return dp[n][m];
+}
 
 void solve() {
-    int num = 7;
-    solve(num);
-    cout<<num;
+    string a;
+    string b;
+    cin>>a>>b;
+    int n = a.size() , m = b.size();
+    vector<vector<int>> dp(n+1, vector<int>(m+1, -1));
+    cout<<count(n,m,a,b,dp);
 }
