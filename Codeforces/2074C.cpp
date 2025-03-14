@@ -14,7 +14,21 @@ int main() {
 }
 
 void solve() {
-    for(int i=17;i<=30;i++) {
-        cout<<(15^i)<<endl;
+    int a;
+    cin>>a;
+    int b = 1;
+    while(b < a-1) {
+        b++;
+        // cout<<"b: "<<b<<endl;
+        int c = (a^b);
+        if(a+b > c && b+c > a && c+a > b) {
+            cout<<b<<endl;
+            return;
+        }
+        b--;
+        b *= 2;
     }
+    cout<<"-1"<<endl;
+
+    // 2^n + 1 
 }

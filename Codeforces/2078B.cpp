@@ -16,8 +16,27 @@ int main() {
 void solve() {
     int n,k;
     cin>>n>>k;
-    for(int i=1;i<n;i++) {
-        cout<< (i + 1 + k) % n <<" ";
+    vector<int> ans(n);
+    if(k % 2 == 0) {
+        for(int i=0;i<n;i++) {
+            if(i != n-2) {
+                cout<< n-1 <<" ";
+                // ans[i] = n-1;
+            }
+            else {
+                cout<< n <<" ";
+            }
+        }
     }
-    cout<<(n - 1 + k) % n<<endl;
+    else {
+        for(int i=0;i<n;i++) {
+            if(i != n-1) {
+                cout<< n <<" ";
+            }
+            else {
+                cout<< n-1 <<" ";
+            }
+        }
+    }
+    cout<<endl;
 }

@@ -14,7 +14,13 @@ int main() {
 }
 
 void solve() {
-    for(int i=17;i<=30;i++) {
-        cout<<(15^i)<<endl;
+    int l,r,d,u;
+    cin>>l>>r>>u>>d;
+    int dis = r*r + u*u;
+    if(u*u + l*l == dis && l*l + d*d == dis && d*d + r*r == dis && u+d == l+r) {
+        cout<<"YES"<<endl;
+    }
+    else {
+        cout<<"NO"<<endl;
     }
 }

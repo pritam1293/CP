@@ -14,7 +14,12 @@ int main() {
 }
 
 void solve() {
-    for(int i=17;i<=30;i++) {
-        cout<<(15^i)<<endl;
+    int a,b,k;
+    cin>>a>>b>>k;
+    if((a+b-k) % 2 == 1) {
+        cout<<"-1"<<endl;
+    }
+    else {
+        cout<< abs((a+b-k)/2 - min(a,b))<<endl;
     }
 }
