@@ -16,12 +16,10 @@ int main() {
 void solve() {
     int n,k;
     cin>>n>>k;
-    vector<int> ans(n);
     if(k % 2 == 0) {
         for(int i=0;i<n;i++) {
             if(i != n-2) {
                 cout<< n-1 <<" ";
-                // ans[i] = n-1;
             }
             else {
                 cout<< n <<" ";

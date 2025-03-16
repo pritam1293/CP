@@ -8,71 +8,38 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-    static bool compare(vector<long long> &a, vector<long long> &b) {
-        return a[0] < b[0];
+bool isZero(vector<int> &a) {
+    for(int val : a) {
+        if(val != 0) return false;
     }
+    return true;
+} 
 
-    void balance(long long &val, multiset<long long> &sml, multiset<long long> &lar, long long &sum, int &k) {
-        if(lar.size() < k || val >= *lar.begin()) {
-            sum += val;
-            lar.insert(val);
-            if(lar.size() > k) {
-                auto it = lar.begin();
-                sum -= *it;
-                sml.insert(*it);
-                lar.erase(it);
-            }
+int minZeroArray(vector<int>& a, vector<vector<int>>& queries) {
+    int k = 0;
+    for(auto q : queries) {
+        int l = q[0];
+        int r = q[1];
+        int val = q[2];
+
+        k++;
+
+        for(int i=l;i<=r;i++) {
+            a[i] -= val;
+            a[i] = max(0, a[i]);
         }
-        else {
-            sml.insert(val);
-        }
+        if(isZero(a)) return k;
     }
-
-vector<long long> findMaxSum(vector<int>& a, vector<int>& b, int k) {
-        int n = (int)a.size();
-        vector<long long> ans(n, 0);
-
-        vector<vector<long long>> arr(n);
-        for (int i=0;i<n;i++) {
-            arr[i] = {(long long)a[i], (long long)b[i], (long long)i};
-        }
-
-        sort(arr.begin(), arr.end(),compare);
-
-        vector<vector<long long>> queries(n);
-        for (int i=0;i<n;i++) {
-            queries[i] = {(long long)a[i], (long long)i};
-        }
-
-        sort(queries.begin(), queries.end(),compare);
-
-        multiset<long long> sml, lar;//small, large
-        long long sum = 0;
-
-        int i = 0;
-        for (auto q : queries) {
-            long long val = q[0];
-            long long idx = q[1];
-
-            while (i < n && arr[i][0] < val) {
-                balance(arr[i][1],sml,lar,sum,k);
-                i++;
-            }
-
-            ans[idx] = sum;
-        }
-        return ans;
+    return -1;
 }
 
 void solve() {
-    vector<int> a = {4,2,1,5,3};
-    vector<int> b = {10,20,30,40,50};
-    for(auto it : findMaxSum(a,b,2)){
-        cout<<it<<" ";
-    }
+    vector<int> a = {1,2,3,2,1};
+    vector<vector<int>> q = {{0,1,1},{1,2,1},{2,3,2},{3,4,1},{4,4,1}};
+    cout<<minZeroArray(a, q);
 }

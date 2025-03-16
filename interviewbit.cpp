@@ -8,31 +8,41 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-int count(int n, int m, string &a, string &b, vector<vector<int>> &dp) {
-    if(m == 0) return 1;
-    if(n == 0) return 0;
-
-    if(dp[n][m] == -1) {
-        if(a[n-1] == b[m-1]) {
-            dp[n][m] = count(n-1, m-1, a, b, dp) + count(n-1, m, a, b, dp);
-        }
-        else {
-            dp[n][m] = count(n-1, m, a, b, dp);
+int longestSubsequenceLength(const vector<int> &a) {
+    int n = a.size();
+    vector<int> lis(n, 1), lds(n, 1);
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<i;j++) {
+            if(a[i] > a[j]) {
+                lis[i] = max(lis[i] , 1 + lis[j]);
+            }
         }
     }
-    return dp[n][m];
+    
+    for(int i=n-1;i>=0;i--) {
+        for(int j=n-1;j>i;j--) {
+            if(a[i] > a[j]) {
+                lds[i] = max(lds[i], 1 + lds[j]);
+            }
+        }
+    }
+    int ans = 0;
+    for(int i=0;i<n;i++) {
+
+        cout<<lds[i]<<" ";
+        ans = max(ans , lis[i] + lds[i] - 1);
+    }
+    cout<<endl;
+    return ans;
 }
 
+
 void solve() {
-    string a;
-    string b;
-    cin>>a>>b;
-    int n = a.size() , m = b.size();
-    vector<vector<int>> dp(n+1, vector<int>(m+1, -1));
-    cout<<count(n,m,a,b,dp);
+    vector<int> a = {1, 11, 2, 10, 4, 5, 2, 1};
+    cout<<longestSubsequenceLength(a)<<endl;
 }
