@@ -8,21 +8,42 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
+// int profit(vector<int> &a) {
+//     int n = a.size();
+//     vector<vector<int>> dp(n+1, vector<int>(2));
+//     if(i == a.size()) return 0;
+//     if(dp[i][buy] != -1) return dp[i][buy]; 
+//     int ans = 0;
+//     if(buy) {
+//         ans = max(-a[i] + profit(i+1, a, 0, dp), profit(i+1, a, 1, dp));
+//     }
+//     else{
+//         ans = max(a[i] + profit(i+1, a, 1, dp), profit(i+1, a, 0, dp));
+//     }
+//     return dp[i][buy] = ans;
+// }
+
 void solve() {
-    // int l = 0 , r = 1073741823;
-    // int p2 = log2(r);
-    // int num = pow(2,p2);
-    // int a = 0;
-    // int b = num-1;
-    // int c = num;
-    int a,b,c;
-    cin>>a>>b>>c;
-    cout<<((a^b) + (b^c) + (c^a))<<endl;
-    
-    // cout<<"0 "<<num-1<<" "<<num<<endl;
+    vector<int> a = {1,2,3,4,5};
+    int n = a.size();
+    vector<vector<int>> dp(n+1, vector<int>(2));
+    for(int i=n-1;i>=0;i--) {
+        for(int buy=0;buy<=1;buy++) {
+            int profit = 0;
+            
+            if(buy) {
+                profit = max(-a[i] + dp[i+1][0], dp[i+1][1]);
+            }
+            else{
+                profit = max(a[i] + dp[i+1][1], dp[i+1][0]);
+            }
+
+            dp[i][buy] = profit;
+        }
+    }
+    cout<<dp[0][1]<<endl;
 }
