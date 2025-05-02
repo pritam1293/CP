@@ -4,8 +4,8 @@ void solve();
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
     while(t--)  solve();
@@ -13,12 +13,12 @@ int main() {
 }
 
 void solve() {
-    cout<<100000<<" "<<100000<<endl;
-    for(int i=1;i<=100000;i++) {
-        cout<<i<< " ";
+    int n;
+    cin>>n;
+    if(n >= 200 && n <= 299) {
+        cout<<"Success"<<endl;
     }
-    cout<<endl;
-    for(int i=1;i<=100000;i++) {
-        cout<<i<< " ";
+    else {
+        cout<<"Failure"<<endl;
     }
 }

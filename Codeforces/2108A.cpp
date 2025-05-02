@@ -4,21 +4,21 @@ void solve();
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    cout<<100000<<" "<<100000<<endl;
-    for(int i=1;i<=100000;i++) {
-        cout<<i<< " ";
+    int n;
+    cin>>n;
+    int sum = 0;
+    for(int i=1;i<=n;i++) {
+        sum += abs(n+1-i - i);
     }
-    cout<<endl;
-    for(int i=1;i<=100000;i++) {
-        cout<<i<< " ";
-    }
+    cout<< sum / 2  + 1<<endl;
 }
