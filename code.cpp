@@ -8,17 +8,12 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    cout<<100000<<" "<<100000<<endl;
-    for(int i=1;i<=100000;i++) {
-        cout<<i<< " ";
-    }
-    cout<<endl;
-    for(int i=1;i<=100000;i++) {
-        cout<<i<< " ";
-    }
+    vector<int> a = {1,10,100,10000,1000000};
+    int m = 5, k = 5;
 }

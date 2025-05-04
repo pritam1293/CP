@@ -8,38 +8,48 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-bool isZero(vector<int> &a) {
-    for(int val : a) {
-        if(val != 0) return false;
-    }
-    return true;
-} 
-
-int minZeroArray(vector<int>& a, vector<vector<int>>& queries) {
-    int k = 0;
-    for(auto q : queries) {
-        int l = q[0];
-        int r = q[1];
-        int val = q[2];
-
-        k++;
-
-        for(int i=l;i<=r;i++) {
-            a[i] -= val;
-            a[i] = max(0, a[i]);
-        }
-        if(isZero(a)) return k;
-    }
-    return -1;
-}
-
 void solve() {
-    vector<int> a = {1,2,3,2,1};
-    vector<vector<int>> q = {{0,1,1},{1,2,1},{2,3,2},{3,4,1},{4,4,1}};
-    cout<<minZeroArray(a, q);
+    int n = 1;
+    vector<vector<int>> ref = {{0}};
+    for(int k=1;k<=n;k++) {
+        int size = pow(2,k);
+
+        vector<vector<int>> curr(size, vector<int>(size));
+        for(int row = 0;row < size/2; row++) {
+            for(int col = size/2; col < size; col++) {
+                curr[row][col] = ref[row][col - (size/2)] ;
+            }
+        }
+
+        for(int row = size/2; row < size; row++) {
+            for(int col = size/2; col < size; col++) {
+                curr[row][col] = ref[row - (size/2)][col - (size/2)] + size * pow(2, k-2);
+            }
+        }
+
+        for(int row = size/2; row < size; row++) {
+            for(int col = 0; col < size/2; col++) {
+                curr[row][col] = ref[row - (size/2)][col] + 2 * size * pow(2, k-2);
+            }
+        }
+
+        for(int row = 0;row < size/2; row++) {
+            for(int col = 0; col < size/2; col++) {
+                curr[row][col] = ref[row][col] + 3 * size * pow(2, k-2);
+            }
+        }
+        
+        ref = curr;
+    }
+
+    for(auto& arr : ref) {
+        for(auto& val : arr) {
+            cout<<val<<" ";
+        }
+        cout<<endl;
+    }
 }
