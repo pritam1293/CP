@@ -12,59 +12,59 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-bool visit(vector<vector<pair<int,int>>> &graph, int n, int x, int d, int &edge) {
-    queue<pair<int,int>> q;
+bool check(vector<vector<pair<int,int>>> &graph, int n, int x, int d, int &edge) {
     vector<bool> vis(n+1);
-    q.push({1, 1});
+    vector<int> q = {1};
     vis[1] = true;
+    for(int y=0;y<d;y++){
+        vector<int> new_q;
+        //do this for every node in q
+        for(auto &[v,w] : graph[u]) {
+            if(w > weight) continue;
 
-    while(!q.empty()) {
-        int u = q.front().first;
-        int cnt = q.front().second;
-        
-        q.pop();
-
-        if(cnt > d) continue;
-
-        for(auto& pair : graph[u]) {
-            int v = pair.first;
-            int w = pair.second;
-
-            if(w > x) continue;
-
-            if(v == n) {
-                edge = cnt;
-                return true;
-            }
             if(!vis[v]) {
-                q.push({v, cnt+1});
+                parent[v] = u;
+                q.push(v);
                 vis[v] = true;
             }
         }
+
+        q = new_q;
     }
     return false;
 }
 
-void dfs(int node, int n, int d, int weight, vector<vector<pair<int,int>>> &graph, bool &found, vector<int> &path, vector<bool> &vis) {
-    if(path.size() > d) return;
-    path.push_back(node);
-    vis[node] = true;
-    if(node == n) {
-        found = true;
-        return;
-    }
+void getPath(vector<vector<pair<int,int>>> &graph, int n, int weight) {
+    vector<int> parent(n+1);
+    vector<bool> vis(n+1);
 
-    for(auto& it : graph[node]) {
-        if(it.second > weight) continue;
-        if(!vis[it.first]) {
-            dfs(it.first, n, d, weight, graph, found, path, vis);
+    queue<int> q;
+    q.push(1);//node and count
+    vis[1] = true;
+    while(!q.empty()) {
+        int u = q.front();
+        q.pop();
+        for(auto &[v,w] : graph[u]) {
+            if(w > weight) continue;
+
+            if(!vis[v]) {
+                parent[v] = u;
+                q.push(v);
+                vis[v] = true;
+            }
         }
-        if(found) return;
     }
-
-    if(found) return;
-    path.pop_back();
-    vis[node] = false;
+    
+    vector<int> path = {n};
+    int node = n;
+    while(node != 1) {
+        node = parent[node];
+        path.push_back(node);
+    }
+    reverse(path.begin(), path.end());
+    for(auto& node : path) {
+        cout<<node<<" ";
+    }
 }
 
 void solve() {
@@ -94,14 +94,7 @@ void solve() {
         }
     }
     cout<<edge<<endl;
-    if(edge == -1) return;
-    
-    queue<pair<int,int>> q;
-    vector<int> path;
-    bool found = false;
-    vector<bool> vis(n+1);
-    dfs(1, n, edge, weight, graph, found, path, vis);
-    for(auto& node : path) {
-        cout<<node<<" ";
+    if(edge != -1) {
+        getPath(graph, n, weight);
     }
 }
