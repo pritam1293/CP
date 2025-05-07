@@ -13,16 +13,6 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-vector<int> countFriends(vector<int> &u, vector<int> &v, int n) {
-    vector<vector<int>> graph(n+1);
-    for(int i=0;i<u.size();i++) {
-        graph[u[i]].push_back(v[i]);
-        graph[v[i]].push_back(u[i]);
-    }
-
-    vector<>
-}
-
 void solve() {
     
 }
