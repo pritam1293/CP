@@ -20,17 +20,22 @@ void solve() {
     for(int i=0;i<n;i++) {
         cin>>a[i];
     }
-    multiset<int> st;
     int l = 0;
-    int cnt = 0;
+    int ans = 0;
+    deque<int> dqmin, dqmax;
     for(int r = 0; r < n; r++) {
-        st.insert(a[r]);
-        while(*st.rbegin() - *st.begin() > k) {
-            auto it = st.find(a[l]);
-            st.erase(it);
+        while(!dqmax.empty() && a[r] > dqmax.back()) dqmax.pop_back();
+        while(!dqmin.empty() && a[r] < dqmin.back()) dqmin.pop_back();
+
+        dqmax.push_back(a[r]);
+        dqmin.push_back(a[r]);
+
+        while(dqmax.front() - dqmin.front() > k) {
+            if(dqmax.front() == a[l]) dqmax.pop_front();
+            if(dqmin.front() == a[l]) dqmin.pop_front();
             l++;
         }
-        cnt += (long long)(r-l+1);
+        ans += (long long)(r-l+1);
     }
-    cout<<cnt<<endl;
+    cout<<ans<<endl;
 }
