@@ -13,10 +13,16 @@ int32_t main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-bool check(int n, int k, int x) {
+bool check(vector<int> &a, vector<int> &b, int n, int k, int x) {
     int cnt = 0;
-    for(int i=1;i<=n;i++) {
-        cnt += (x % i == 0 ? min(x/i -1, n) : min(x/i, n));
+    int j = n-1;
+    for(int i=0;i<n && j >= 0;i++) {
+        while(a[i] + b[j] >= x && j >= 0) {
+            j--;
+        }
+        if(a[i] + b[j] < x) {
+            cnt += j+1;
+        }
     }
     return cnt < k;
 }
@@ -24,11 +30,21 @@ bool check(int n, int k, int x) {
 void solve() {
     int n,k;
     cin>>n>>k;
-    int low = 1, high = n*n;
+    vector<int> a(n), b(n);
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+    }
+    for(int i=0;i<n;i++) {
+        cin>>b[i];
+    }
+    sort(a.begin(),a.end());
+    sort(b.begin(),b.end());
+
+    int low = 1, high = 2e9;
     int ans = high;
     while(low <= high) {
-        int mid = (low + high) / 2;
-        if(check(n, k, mid)) {
+        int mid  = (low + high) / 2;
+        if(check(a, b, n, k, mid)) {
             ans = mid;
             low = mid+1;
         }
