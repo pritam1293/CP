@@ -8,17 +8,11 @@ int main() {
     freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    int n,s;
-    cin>>n>>s;
-    vector<int> a(n);
-    for(int i=0;i<n;i++) {
-        cin>>a[i];
-    }
-    deque<int> dq;
-
+    
 }
