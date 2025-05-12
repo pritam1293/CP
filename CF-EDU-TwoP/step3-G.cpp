@@ -14,28 +14,28 @@ int32_t main() {
 }
 
 void solve() {
-    int n,m;
-    cin>>n>>m;
-    string s, cards;
-    cin>>s>>cards;
-    vector<int> freq(26), cnt(26);
-    for(auto& c : cards) {
-        cnt[c-'a']++;
-    }
-
-    int l = 0;
-    int ans = 0;
+    int n, c;
+    cin>>n>>c;
+    string s;
+    cin>>s;
+    int cnta = 0, cntb = 0, ans = 0, l = 0;
+    int sum = 0;
     for(int r = 0; r < n; r++) {
-        freq[s[r]-'a']++;
-        if(freq[s[r]-'a'] > cnt[s[r]-'a']) {
-            while(s[l] != s[r]) {
-                freq[s[l]-'a']--;
-                l++;
+        if(s[r] == 'a') cnta++;
+        else if(s[r] == 'b') {
+            cntb++;
+            sum += cnta;
+        }
+
+        while(sum > c) {
+            if(s[l] == 'a') {
+                sum -= cntb;
+                cnta--;
             }
-            freq[s[l]-'a']--;
+            else if(s[l] == 'b') cntb--;
             l++;
         }
-        ans += r-l+1;
+        ans = max(ans, r-l+1);
     }
     cout<<ans<<endl;
 }

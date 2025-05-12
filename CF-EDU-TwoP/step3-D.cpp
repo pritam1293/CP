@@ -17,9 +17,19 @@ int pant;
 int shirt;
 int shoe;
 
-int calculate(int a, int b, int c, int d) {
-    int diff = INT_MIN;
+vector<int> caps;
+vector<int> shirts;
+vector<int> pants;
+vector<int> shoes;
+int n1, n2, n3, n4;
 
+int calculate(int a, int b, int c, int d) {
+    if(b < 0 || c < 0 || d < 0 || b >= n2 || c >= n3 || d >= n4) return INT_MAX;
+    int diff = INT_MIN;
+    a = caps[a];
+    b = shirts[b];
+    c = pants[c];
+    d = shoes[d];
     vector<int> arr = {a, b, c, d};
     for(int i=0;i<4;i++) {
         for(int j=0;j<4;j++) {
@@ -29,28 +39,34 @@ int calculate(int a, int b, int c, int d) {
     return diff;
 }
 
+void update(int &minm, int diff, int a, int b, int c, int d) {
+    if(minm > diff) {
+        minm = diff;
+        cap = caps[a];
+        shirt = shirts[b];
+        pant = pants[c];
+        shoe = shoes[d];
+    }
+}
+
 void solve() {
-    int n1;
     cin>>n1;
-    vector<int> caps(n1);
+    caps.resize(n1);
     for(int i=0;i<n1;i++) cin>>caps[i];
     sort(caps.begin(), caps.end());
     
-    int n2;
     cin>>n2;
-    vector<int> shirts(n2);
+    shirts.resize(n2);
     for(int i=0;i<n2;i++) cin>>shirts[i];
     sort(shirts.begin(), shirts.end());
 
-    int n3;
     cin>>n3;
-    vector<int> pants(n3);
+    pants.resize(n3);
     for(int i=0;i<n3;i++) cin>>pants[i];
     sort(pants.begin(), pants.end());
 
-    int n4;
     cin>>n4;
-    vector<int> shoes(n4);
+    shoes.resize(n4);
     for(int i=0;i<n4;i++) cin>>shoes[i];
     sort(shoes.begin(), shoes.end());
 
@@ -59,32 +75,20 @@ void solve() {
     pant = pants[0];
     shoe = shoes[0];
 
-    int a = 0, b = 0, c = 0, d = 0;
-    int minm = INT_MAX;
+    int b = 0, c = 0, d = 0;
+    int minm = INT_MAX - 3;
+    for(int i=0;i<n1;i++) {
+        while(b < n2 && shirts[b] <= caps[i]) b++;
+        while(c < n3 && pants[c] <= caps[i]) c++;
+        while(d < n4 && shoes[d] <= caps[i]) d++;
 
-    while(a < n1 && b < n2 && c < n3 && d < n4) {
-        int diff = calculate(caps[a], shirts[b], pants[c], shoes[d]);
-
-        if(minm > diff) {
-            minm = diff;
-            cap = caps[a];
-            shirt = shirts[b];
-            pant = pants[c];
-            shoe = shoes[d];
+        for(int j = 0; j < 8; j++) {
+            int b1 = b - (1 & (j >> 0));
+            int c1 = c - (1 & (j >> 1));
+            int d1 = d - (1 & (j >> 2));
+            int diff = calculate(i, b1, c1, d1);
+            update(minm, diff, i , b1, c1, d1);
         }
-
-        if(caps[a] <= shirts[b] && caps[a] <= pants[c] && caps[a] <= shoes[d]) {
-            a++;
-        }
-        else if (shirts[b] <= caps[a] && shirts[b] <= pants[c]  && shirts[b] <= shoes[d]) {
-            b++;   
-        }
-        else if(pants[c] <= caps[a] && pants[c] <= shirts[b] && pants[c] <= shoes[d]) {
-            c++;
-        }
-        else if(shoes[d] <= caps[a] && shoes[d] <= shirts[b] && shoes[d] <= pants[b]) {
-            d++;
-        }
-    }
+    }    
     cout<<cap<<" "<<shirt<<" "<<pant<<" "<<shoe<<endl;
 }
