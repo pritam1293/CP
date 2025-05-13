@@ -19,9 +19,10 @@ int mod = 1e9 + 7;
 //     if(row >= n || col >= n) return 0;
 //     if(grid[row][col] == '*') return 0;
 
-//     if(dp[row][col] != -1) return dp[row][col];
-
-//     return dp[row][col] = (rec(row, col+1, n, grid, dp) % mod + rec(row+1, col, n, grid, dp) % mod) % mod;
+//     if(dp[row][col] == -1) {
+//         dp[row][col] = (rec(row, col+1, n, grid, dp) % mod + rec(row+1, col, n, grid, dp) % mod) % mod;
+//     }
+//     return dp[row][col];
 // }
  
 void solve() {
