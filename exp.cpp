@@ -12,12 +12,28 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-void solve() {
-    for(int j = 0; j < 8; j++) {
-        int bit1 = (1 & (j >> 0));
-        int bit2 = (1 & (j >> 1));
-        int bit3 = (1 & (j >> 2));
-        cout<<bit1<<bit2<<bit3<<endl;
+int fnc(int s, vector<int> &a, int n) {
+    if(s < 0) return 0;
+    int l = 0;
+    int ans = 0;
+    int sum = 0;
+    for(int r=0;r<n;r++) {
+        sum += a[r];
+        while(sum > s) {
+            sum -= a[l];
+            l++;
+        }
+        ans += r-l+1;
     }
+    return ans;
+}
 
+void solve() {
+    int n,k;
+    cin>>n>>k;
+    vector<int> a(n);
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+    }
+    cout<< fnc(k, a, n) - fnc(k-1, a, n)<<endl;
 }
