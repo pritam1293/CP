@@ -14,7 +14,12 @@ int main() {
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
-//211059306
+
+/*
+for the state at any stage refer to the below link:
+https://github.com/pritam1293/CP/blob/main/Picture-References-CP/CSES-DP-Count-Towers.jpeg
+*/
+
 long long mod = 1e9 + 7;
 vector<long long> a(1000001), b(1000001);
 
