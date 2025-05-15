@@ -20,7 +20,7 @@ int mod = 1e9 + 7;
 //     if(grid[row][col] == '*') return 0;
 
 //     if(dp[row][col] == -1) {
-//         dp[row][col] = (rec(row, col+1, n, grid, dp) % mod + rec(row+1, col, n, grid, dp) % mod) % mod;
+//         dp[row][col] = (rec(row, col+1, n, grid, dp) + rec(row+1, col, n, grid, dp)) % mod;
 //     }
 //     return dp[row][col];
 // }
@@ -46,8 +46,8 @@ void solve() {
     for(int i=n-1;i>=0;i--) {
         for(int j=n-1;j>=0;j--) {
             if(grid[i][j] == '*') continue;
-            if(i+1 < n) dp[i][j] = (dp[i][j] % mod + dp[i+1][j] % mod) % mod;
-            if(j+1 < n) dp[i][j] = (dp[i][j] % mod + dp[i][j+1] % mod) % mod;
+            if(i+1 < n) dp[i][j] = (dp[i][j] + dp[i+1][j]) % mod;
+            if(j+1 < n) dp[i][j] = (dp[i][j] + dp[i][j+1]) % mod;
         }
     }
     cout<<dp[0][0]<<endl;

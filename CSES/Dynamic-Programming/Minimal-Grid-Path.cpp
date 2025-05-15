@@ -12,11 +12,16 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-
+void rec(int row, int col, int n, vector<string> &grid, string &ans) {
+    if(row >= n || col >= n) return ;
+} 
 
 void solve() {
     int n;
     cin>>n;
-    vector<string> a(n);
-    for(int i=0;i<n;i++) cin>>a[i];
+    vector<string> grid(n);
+    for(int i=0;i<n;i++) cin>>grid[i];
+    string ans;
+    rec(0, 0, n, grid, ans);
+    cout<<ans<<endl;
 }

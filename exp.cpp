@@ -36,4 +36,5 @@ void solve() {
         cin>>a[i];
     }
     cout<< fnc(k, a, n) - fnc(k-1, a, n)<<endl;
+    
 }
