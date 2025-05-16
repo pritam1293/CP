@@ -12,6 +12,19 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
+static bool compare(int a, int b) {
+    return a < b;
+}
+
 void solve() {
-    
+    int n;
+    cin>>n;
+    vector<int> a(n);
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+    }
+    sort(a.begin(), a.end(), compare);
+    for(auto val : a) {
+        cout<<val<<" ";
+    }
 }

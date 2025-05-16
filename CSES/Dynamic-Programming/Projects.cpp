@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define int long long
 void solve();
-int main() {
+int32_t main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
     freopen("../../input.txt", "r", stdin);
@@ -12,27 +13,37 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-int rec(int i, int days, vector<vector<int>> &a, map<pair<int,int>, int> &dp) {
-    if(i == a.size()) return 0;
-    if(dp.find({i, days}) == dp.end()) {
-        int money = rec(i+1, days, a, dp);
-        if(a[i][0] >= days) {
-            money = max(money, a[i][2] + rec(i+1, a[i][1] + 1, a, dp));
-        }
-        dp[{i, days}] = money;
+struct event {
+    int start, end, reward;
+};
+
+static bool compare(const event &a, const event &b) {
+    return a.start < b.start;
+}
+
+int rec(int i, int n, vector<event> &events, vector<int> &dp) {
+    if(i == n) return 0;
+    if(dp[i] != -1) return dp[i];
+    int ans = rec(i+1, n, events, dp);
+    event e = {events[i].end+1, events[i].end+1, 0};
+    int idx = lower_bound(events.begin(), events.end(), e, compare) - events.begin();
+    if(idx != n) {
+        ans = max(ans, events[i].reward + rec(idx, n, events, dp));
     }
-    return dp[{i, days}];
+    else {
+        ans = max(ans, events[i].reward);
+    }
+    return dp[i] = ans;
 }
 
 void solve() {
     int n;
     cin>>n;
-    vector<vector<int>> a(n, vector<int>(3));
+    vector<event> events(n);
     for(int i=0;i<n;i++) {
-        for(int j=0;j<3;j++) {
-            cin>>a[i][j];
-        }
+        cin>>events[i].start>>events[i].end>>events[i].reward;
     }
-    map<pair<int,int>, int> dp;
-    cout<<rec(0, 0, a, dp)<<endl;
+    sort(events.begin(), events.end(), compare);
+    vector<int> dp(n+1, -1);
+    cout<<rec(0, n, events, dp)<<endl;
 }
