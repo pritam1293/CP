@@ -28,4 +28,10 @@ void solve() {
         cout<<val<<" ";
     }
     cout<<(int)'0'<<endl;
+
+    n = 99;
+    while(n) {
+        cout<< n%2 << " ";
+        n /= 2;
+    }
 }
