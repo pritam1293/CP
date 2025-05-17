@@ -30,6 +30,11 @@ void solve() {
     for(int i=0;i<n;i++) {
         cin>>a[i];
     }
+    int i = 0, j = n-1;
+    while(a[i] == 0 && a[j] == 0) {
+        i++;
+        j--;
+    }
     vector<vector<long long>> dp1(n, vector<long long>(n, -1));
-    cout<<rec(0, n-1, a, dp1)<<endl;
+    cout<<rec(i, j, a, dp1)<<endl;
 }
