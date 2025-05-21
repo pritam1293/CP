@@ -32,18 +32,16 @@ void solve() {
         graph[v].push_back(u);
     }
     vector<bool> vis(n+1, false);
-    int cnt = 0;
     vector<int> nodes;
     for(int i=1;i<=n;i++) {
         if(!vis[i]) {
             dfs(i, vis, graph);
-            cnt++;
             nodes.push_back(i);
         }
     }
     int roads = nodes.size()-1;
     cout<< roads <<endl;
-    if(roads) {
+    if(roads >= 1) {
         for(int i=0;i<roads;i++) {
             cout<<nodes[i]<<" "<<nodes[i+1]<<endl;
         }
