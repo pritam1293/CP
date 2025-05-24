@@ -13,9 +13,11 @@ int32_t main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
+int inf = 1e17;
+
 void solve() {
-    int n, m;
-    cin>>n>>m;
+    int n, m, k;
+    cin>>n>>m>>k;
     vector<vector<pair<int,int>>> graph(n+1);
     for(int i=0;i<m;i++) {
         int u, v, w;
@@ -23,26 +25,27 @@ void solve() {
         graph[u].push_back({v, w});
         // graph[v].push_back({u, w});
     }
-    vector<int> dist(n+1, LLONG_MAX);
-    set<pair<int, int>> st;
-    st.insert({0, 1});
-    dist[1] = 0;
-    while(!st.empty()) {
-        int node = st.begin()->second;
-        st.erase(st.begin());
- 
-        for(auto& [child, w] : graph[node]) {
-            if(dist[child] > dist[node] + w) {
-                if(st.contains({dist[child], child})) {
-                    st.erase({dist[child], child});
-                }
+    vector<vector<int>> dist(n+1, vector<int>(k, inf));
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push({0,1});
+    dist[1][0] = 0;
 
-                dist[child] = dist[node] + w;
-                st.insert({dist[child], child});
+    while(!pq.empty()) {
+        int d = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        if(dist[node][k-1] < d) continue;
+
+        for(auto& [child, w] : graph[node]) {
+            if(d + w < dist[child][k-1]) {
+                dist[child][k-1] = d + w;
+                sort(dist[child].begin(), dist[child].end());
+                pq.push({d + w, child});
             }
         }
     }
-    for(int i=1;i<=n;i++) {
-        cout<<dist[i]<<" ";
+    for(int i=0;i<k;i++) {
+        cout<<dist[n][i]<<" ";
     }
 }
