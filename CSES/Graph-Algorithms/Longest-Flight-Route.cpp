@@ -12,35 +12,65 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-void dfs(int node, vector<bool> &vis, vector<int> &dp, vector<vector<int>> &graph) {
+vector<bool> vis;
+vector<int> dp, parent;
+
+void check(int node, vector<vector<int>> &graph) {
     vis[node] = true;
     for(auto& child : graph[node]) {
-        if(!vis[child]) dfs(child, vis, dp, graph);
-        dp[node] = max(dp[node], 1 + dp[child]);
+        if(!vis[child]) check(child, graph);
     }
+}
+
+int dfs(int node, int n, vector<vector<int>> &graph) {
+    if(node == n) return dp[n] = 1;
+    if(dp[node] != -1) return dp[node];
+
+    int len = 0;
+    for(auto& child : graph[node]) {
+        int temp = dfs(child, n, graph);
+        int temp_len = (temp == 0) ? 0 : 1 + temp;
+        // cout<<temp_len<<endl;
+        if(temp_len > len) {
+            parent[node] = child;
+            len = temp_len;
+        }
+    }
+    return dp[node] = len;
 }
 
 void solve() {
     int n, m;
     cin>>n>>m;
-
     vector<vector<int>> graph(n+1);
     for(int i=0;i<m;i++) {
         int u,v;
         cin>>u>>v;
         graph[u].push_back(v);
+        // graph[v].push_back(u);
     }
-    vector<int> dp(n+1);
-    vector<bool> vis(n+1, false);
-    for(int i=1;i<=n;i++) {
-        if(!vis[i]) {
-            dfs(i, vis, dp, graph);
+    vis = vector<bool>(n+1, false);
+    check(1, graph);
+    if(!vis[n]) {
+        cout<<"IMPOSSIBLE"<<endl;
+    }
+    else {
+        dp = vector<int>(n+1, -1);
+        parent = vector<int>(n+1);
+        dfs(1, n, graph);
+        // for(int i=1;i<=n;i++) {
+        //     cout<<i<<" "<<parent[i]<<endl;
+        // }
+        int node = 1;
+        vector<int> path = {node};
+        while(node != n) {
+            node = parent[node];
+            path.push_back(node);
+        }
+        // reverse(path.begin(), path.end());
+        cout<<path.size()<<endl;
+        for(auto& it : path) {
+            cout<<it<<" ";
         }
     }
-    int ans = 0;
-    for(int i=1;i<=n;i++) {
-        ans = max(ans, dp[i]);
-    }
-    // cout<<dp[n]<<endl;
-    cout<<ans<<endl;
 }
