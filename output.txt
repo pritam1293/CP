@@ -1,3 +1,2 @@
-ab
-aaaaabbbbb
-aaaaaaaaaaaaaaabbbabcbabbbbabc
+2
+0
