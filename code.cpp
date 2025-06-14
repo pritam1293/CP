@@ -1,9 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define int long long
 void solve();
-int32_t main() {
+int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
@@ -14,45 +12,27 @@ int32_t main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
+int rec(int i, vector<int> &a, vector<int> &b, int n, int h, int m) {
+    if(i == a.size()) return 0;
+    int ans = 0;
+    if(h >= a[i] && m >= b[i]) {
+        ans = max(ans, 1 + max(rec(i+1, a, b, n, h - a[i], m), rec(i+1, a, b, n, h, m - b[i])));
+    }
+    else if(h >= a[i]) {
+        ans = max(ans, 1 + rec(i+1, a, b, n, h - a[i], m));
+    }
+    else if(m >= b[i]) {
+        ans = max(ans, 1 + rec(i+1, a, b, n, h, m - b[i]));
+    }
+    return ans;
+}
+
 void solve() {
-     // int n;
-     //    ll k;
-     //    cin >> n >> k;
- 
-     //    vector<ll> a(n);
-     //    for (int i = 0; i < n; ++i)
-     //        cin >> a[i];
- 
-     //    ll beauty = 0;
-     //    vector<ll> upgrades;
- 
-     //    for (int i = 0; i < n; ++i) {
-     //        ll x = a[i];
-     //        beauty += __builtin_popcountll(x);
- 
-     //        // Generate upgrade steps
-     //        while (true) {
-     //            int pos = __builtin_ctzll(~x); // position of lowest 0-bit
-     //            ll cost = 1LL << pos;
-     //            if (k < cost) break;
-     //            upgrades.push_back(cost);
-     //            x += cost; // flip the 0-bit at position pos
-     //        }
-     //    }
- 
-     //    // Sort upgrades by cost and pick cheapest until k is exhausted
-     //    sort(upgrades.begin(), upgrades.end());
-     //    for (ll cost : upgrades) {
-     //        if (k >= cost) {
-     //            k -= cost;
-     //            ++beauty;
-     //        } else break;
-     //    }
- 
-     //    cout << beauty << '\n';
-    int n = 9;
-    // for(int i = 0; i < 7; i++) {
-    //     cout<<(1 & (n >> i));
-    // }
-    cout<<(1 & (2 >> 0));
+    int n, h, m;
+    cin>>n>>h>>m;
+    vector<int> a(n), b(n);
+    for(int i=0;i<n;i++) {
+        cin>>a[i]>>b[i];
+    }
+    cout<< rec(0, a, b, n, h, m) << endl;
 }

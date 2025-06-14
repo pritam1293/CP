@@ -4,15 +4,17 @@ void solve();
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 vector<int> a, tree;
+int inf = 98;
 
 void buildTree(int low, int high, int pos) {
     if(low == high) {
@@ -20,12 +22,11 @@ void buildTree(int low, int high, int pos) {
         return;
     }
     int mid = (low + high) / 2;
-    buildTree(low, mid, 2 * pos + 1);
-    buildTree(mid+1, high, 2 * pos + 2);
+    buildTree(low, mid, 2 * pos + 1); //left child
+    buildTree(mid+1, high, 2 * pos + 2); //right child
+    //parent is (pos-1)/2
     tree[pos] = min(tree[2 * pos + 1], tree[2 * pos + 2]);
 }
-
-int inf = 98;
 
 int rangeQuery(int qlow, int qhigh, int low, int high, int pos) {
     //total overlap
