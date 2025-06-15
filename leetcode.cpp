@@ -12,44 +12,116 @@ int main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-void solve() {
-    int n = 1;
-    vector<vector<int>> ref = {{0}};
-    for(int k=1;k<=n;k++) {
-        int size = pow(2,k);
+    #define ll long long
+    vector<vector<pair<int,int>>> tree;
+    vector<vector<ll>>parent, weight;
+    vector<ll> depth, dw;
 
-        vector<vector<int>> curr(size, vector<int>(size));
-        for(int row = 0;row < size/2; row++) {
-            for(int col = size/2; col < size; col++) {
-                curr[row][col] = ref[row][col - (size/2)] ;
-            }
+    void dfs(int node, int par, ll wt) {
+        depth[node] = 1 + depth[par];
+        dw[node] = wt + dw[par];
+        parent[node][0] = par;
+        weight[node][0] = wt;
+        for(auto& [child, w] : tree[node]) {
+            if(child != par) dfs(child, node, w);
         }
-
-        for(int row = size/2; row < size; row++) {
-            for(int col = size/2; col < size; col++) {
-                curr[row][col] = ref[row - (size/2)][col - (size/2)] + size * pow(2, k-2);
-            }
-        }
-
-        for(int row = size/2; row < size; row++) {
-            for(int col = 0; col < size/2; col++) {
-                curr[row][col] = ref[row - (size/2)][col] + 2 * size * pow(2, k-2);
-            }
-        }
-
-        for(int row = 0;row < size/2; row++) {
-            for(int col = 0; col < size/2; col++) {
-                curr[row][col] = ref[row][col] + 3 * size * pow(2, k-2);
-            }
-        }
-        
-        ref = curr;
     }
 
-    for(auto& arr : ref) {
-        for(auto& val : arr) {
-            cout<<val<<" ";
+    int lca(int u, int v) {
+        if(depth[u] > depth[v]) swap(u, v);
+        int d = depth[v] - depth[u];
+        for(int i=0;i<20;i++) {
+            if(1 & (d >> i)) v = parent[v][i];
         }
-        cout<<endl;
+        if(u == v) return u;
+        for(int i=19;i>=0;i--) {
+            if(parent[u][i] != parent[v][i]) {
+                u = parent[u][i];
+                v = parent[v][i];
+            }
+        }
+        return parent[u][0];
+    }
+
+    int jump(int node, int d) {
+        for(int i=0;i<20;i++) {
+            if(1 & (d >> i)) node = parent[node][i];
+        }
+        return node;
+    }
+
+vector<int> findMedian(int n, vector<vector<int>>& edges, vector<vector<int>>& queries) {
+        tree = vector<vector<pair<int,int>>>(n);
+        parent = vector<vector<ll>>(n, vector<ll>(20, -1));
+        weight = vector<vector<ll>>(n, vector<ll>(20));
+        depth = vector<ll>(n);
+        dw = vector<ll>(n);
+        for(auto& edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            tree[u].push_back({v, w});
+            tree[v].push_back({u, w});
+        }
+        dfs(0, 0 ,0);
+        for(int d=1;d<20;d++) {
+            for(int i=0;i<n;i++) {
+                if(parent[i][d-1] != -1) {
+                    parent[i][d] = parent[parent[i][d-1]][d-1];
+                    weight[i][d] = weight[i][d-1] + weight[parent[i][d-1]][d-1];
+                }
+            }
+        }
+        vector<int> ans;
+        for(auto& q : queries) {
+            int a = q[0];
+            int b = q[1];
+            int lc = lca(a, b);
+            ll tot = (dw[a] + dw[b] - 2*dw[lc]);
+            ll tar = (tot + 1)/2;
+
+            if(dw[a] - dw[lc] >= tar) {
+                int d = depth[a] - depth[lc];
+                int low = 1, high = d;
+                int node = lc;
+                while(low <= high) {
+                    int mid = (low + high) / 2;
+                    int mid_node = jump(a, mid);
+                    if(dw[a] - dw[mid_node] >= tar) {
+                        node = mid_node;
+                        high = mid-1;
+                    }
+                    else {
+                        low = mid+1;
+                    }
+                }
+                ans.push_back(node);
+            }
+            else {
+                int d = depth[b] - depth[lc];
+                int low = 0, high = d-1, node = b;
+                ll c = dw[b] - dw[lc];
+                while(low <= high) {
+                    int mid = (low + high) / 2;
+                    int mid_node = jump(b, mid);
+                    if(c + dw[mid_node] - dw[lc] >= tar) {
+                        node = mid_node;
+                        low = mid+1;
+                    }
+                    else {
+                        high = mid-1;
+                    }
+                }
+                ans.push_back(node);
+            }
+        }
+        return ans;
+}
+
+void solve() {
+    vector<vector<int>> a = {{0,1,2},{0,2,5},{1,3,1},{2,4,3}};
+    vector<vector<int>> q = {{3, 4}, {1, 2}};
+    for(auto it : findMedian(5, a, q)) {
+        cout<<it<<" ";
     }
 }

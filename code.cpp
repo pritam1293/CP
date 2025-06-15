@@ -28,11 +28,14 @@ int rec(int i, vector<int> &a, vector<int> &b, int n, int h, int m) {
 }
 
 void solve() {
-    int n, h, m;
-    cin>>n>>h>>m;
-    vector<int> a(n), b(n);
-    for(int i=0;i<n;i++) {
-        cin>>a[i]>>b[i];
-    }
-    cout<< rec(0, a, b, n, h, m) << endl;
+    // int n, h, m;
+    // cin>>n>>h>>m;
+    // vector<int> a(n), b(n);
+    // for(int i=0;i<n;i++) {
+    //     cin>>a[i]>>b[i];
+    // }
+    // cout<< rec(0, a, b, n, h, m) << endl;
+    // cout<< (int)'A';
+    string s = "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh";
+    cout<<s.size()<<endl;
 }

@@ -4,17 +4,16 @@ void solve();
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../../input.txt", "r", stdin);
+    freopen("../../output.txt", "w", stdout);
 #endif
     int t=1;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-vector<long long> max_tree, min_tree;
+vector<long long> max_tree, min_tree, a;
 long long inf = 1e9;
-vector<long long> a;
 
 void build_max_tree(int low, int high, int pos) {
     if(low == high) {
@@ -68,9 +67,8 @@ long long range_min(int qlow, int qhigh, int low, int high, int pos) {
     return min(range_min(qlow, qhigh, low, mid, 2 * pos + 1), range_min(qlow, qhigh, mid+1, high, 2 * pos + 2));
 }
 
-void solve() {
-    a = {1,3,4,-5};
-    int m=4;
+long long maximumProduct(vector<int>& nums, int m) {
+    for(auto& num : nums) a.push_back(num);
     int n = a.size();
     long long ans = -1e12;
     max_tree = vector<long long>(4*n);
@@ -85,5 +83,11 @@ void solve() {
         ans = max(ans, mn1*mn2);
         ans = max(ans, mx1*mx2);
     }
-    cout<<ans<<endl;
+    return ans;
+}
+
+void solve() {
+    vector<int> nums = {2,-1,2,-6,5,2,-5,7};
+    int m = 2;
+    cout<<maximumProduct(nums, m)<<endl;
 }
