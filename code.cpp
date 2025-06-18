@@ -8,34 +8,23 @@ int main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-int rec(int i, vector<int> &a, vector<int> &b, int n, int h, int m) {
-    if(i == a.size()) return 0;
-    int ans = 0;
-    if(h >= a[i] && m >= b[i]) {
-        ans = max(ans, 1 + max(rec(i+1, a, b, n, h - a[i], m), rec(i+1, a, b, n, h, m - b[i])));
-    }
-    else if(h >= a[i]) {
-        ans = max(ans, 1 + rec(i+1, a, b, n, h - a[i], m));
-    }
-    else if(m >= b[i]) {
-        ans = max(ans, 1 + rec(i+1, a, b, n, h, m - b[i]));
-    }
-    return ans;
-}
-
 void solve() {
-    // int n, h, m;
-    // cin>>n>>h>>m;
-    // vector<int> a(n), b(n);
-    // for(int i=0;i<n;i++) {
-    //     cin>>a[i]>>b[i];
-    // }
-    // cout<< rec(0, a, b, n, h, m) << endl;
-    // cout<< (int)'A';
-    string s = "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh";
-    cout<<s.size()<<endl;
+    cout<<40<<endl;
+    int n = 80;
+    while(n) {
+        cout<<n<<" ";
+        n -= 2;
+    }
+    cout<<endl;
+    cout<<40<<endl;
+    n = 79;
+    while(n >= 1) {
+        cout<<n<<" ";
+        n -= 2;
+    }
 }
