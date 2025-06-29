@@ -4,8 +4,8 @@ void solve();
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
     while(t--)  solve();
@@ -13,5 +13,13 @@ int main() {
 }
 
 void solve() {
-    
+    int n;
+    cin>>n;
+    int cnt = 0;
+    for(int i=0;i<n;i++) {
+        int a, b;
+        cin>>a>>b;
+        if(b > a) cnt++;
+    }
+    cout<<cnt;
 }

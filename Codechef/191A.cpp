@@ -14,23 +14,21 @@ int main() {
 }
 
 void solve() {
-    string l, r;
-    cin>>l>>r;
-    if(l == r) {
-        cout<< 2 * l.size() <<endl;
+    int a, b;
+    cin>>a>>b;
+    if(__gcd(a, b) != 1) {
+        cout<<"0"<<endl;
         return;
     }
-    int ptr = 0;
-    while(ptr < l.size() && l[ptr] == r[ptr]) ptr++;
-    if(l[ptr] + 1 < r[ptr]) {
-        cout<< 2 * ptr <<endl;
+    if(a % 2 == b % 2 ) {
+        if(__gcd(a+1, b) != 1 || __gcd(a, b+1) != 1) {
+            cout<<"1"<<endl;
+        }
+        else {
+            cout<<"2"<<endl;
+        }
     }
     else {
-        int ans = 2 * ptr + 1;
-        for(int i = ptr+1 ; i < l.size(); i++){
-            if(l[i] == '9' && r[i] == '0') ans++;
-            else break;
-        }
-        cout<<ans<<endl;
+        cout<<"1"<<endl;
     }
 }

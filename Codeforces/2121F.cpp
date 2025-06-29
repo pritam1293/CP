@@ -73,19 +73,7 @@ void solve() {
     for(int i=0;i<n;i++) {
         sum += a[i];
         if(sum == s && rangeQuery(0, i, 0, n-1, 0) == x) cnt += 1ll;
-        if(mp.find(sum-s) != mp.end()) {
-            int idx = -1;
-            int low = 0, high = mp[sum-s].size()-1, mid;
-            while(low <= high) {
-                mid = (low + high) / 2;
-                if(rangeQuery(mp[sum-s][mid]+1, i, 0, n-1, 0) == x) {
-                    low = mid+1;
-                    idx = mp[sum-s][mid];
-                }
-                else high = mid-1;
-            }
-            cnt += idx+1;
-        }
+        
         mp[sum].push_back(i);
     }
     cout<<cnt<<endl;
