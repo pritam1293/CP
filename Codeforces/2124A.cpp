@@ -4,8 +4,8 @@ void solve();
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
     cin>>t;
@@ -16,14 +16,19 @@ int main() {
 void solve() {
     int n;
     cin>>n;
-    cout<<n<<endl;
     vector<int> a(n);
     for(int i=0;i<n;i++) {
         cin>>a[i];
     }
-    int ans = 1;
-    for(int i = n-2; i >= 0; i--) {
-        cout<< max(ans, a[i] / a[i+1]) <<endl;
+    for(int i = 0; i < n; i++) {
+        for(int j = i+1; j < n; j++) {
+            if(a[i] > a[j]) {
+                cout<<"YES"<<endl;
+                cout<<2<<endl;
+                cout<<a[i]<<" "<<a[j]<<endl;
+                return;
+            }
+        }
     }
-    // cout<<ans<<endl;
+    cout<<"NO"<<endl;
 }
