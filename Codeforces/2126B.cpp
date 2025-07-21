@@ -15,29 +15,26 @@ int32_t main() {
 }
 
 void solve() {
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    int l = -1, r = -1;
-    for(int i = 1; i < n; i++) {
-        if(s[i] != s[i-1]) {
-            l = i;
-            break;
+    int n, k;
+    cin>>n>>k;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) {
+        cin>>a[i];
+    }
+    int c = 0, ans = 0;
+    bool flag = false;
+    for(int i = 0; i < n; i++) {
+        if(flag) {
+            flag = false;
+            continue;
+        }
+        if(a[i] == 0) c++;
+        else c = 0;
+        if(c == k) {
+            flag = true;
+            ans++;
+            c = 0;
         }
     }
-    for(int i = n-2; i >= l; i--) {
-        if(s[i+1] != s[i]) {
-            r = i;
-            break;
-        }
-    }
-    if(l == -1 || r == -1) {
-        cout<<n<<endl;
-        return;
-    }
-    int ans = l + 1 + n - r;
-    if(s[l] != s[r]) ans--;
-    else ans -= 2;
     cout<<ans<<endl;
 }
