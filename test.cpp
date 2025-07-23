@@ -67,4 +67,7 @@ void solve() {
     tar = 4;
     extra = {{1, 3, 2}};
     cout<<Solutionsolve(n, edges, src, tar, extra)<<endl;
+    // for (int i : std::views::iota(1, 6)) {
+    //     std::cout << i << " ";
+    // }
 }
