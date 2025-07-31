@@ -9,7 +9,7 @@ int32_t main() {
     freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
@@ -18,12 +18,13 @@ void solve() {
     int n;
     cin>>n;
     vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin>>a[i];
+    cout<<"2"<<endl;
+    for(int i = 1; i <= n; i++) {
+        cout<<i<<" ";
     }
-    reverse(a.begin(), a.end());
-    vector<int> arr = {a[0]};
-    for(int i = 1; i < n; i++) {
-        if(a[i])
+    cout<<endl;
+    for(int i = n; i > 0; i--) {
+        cout<<i<<" ";
     }
+    cout<<endl;
 }

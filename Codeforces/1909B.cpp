@@ -18,12 +18,12 @@ void solve() {
     int n;
     cin>>n;
     vector<int> a(n);
-    for(int i = 0; i < n; i++) {
+    for(int  i = 0; i < n; i++) {
         cin>>a[i];
     }
-    reverse(a.begin(), a.end());
-    vector<int> arr = {a[0]};
+    int gcd = 0;
     for(int i = 1; i < n; i++) {
-        if(a[i])
+        gcd = __gcd(gcd, abs(a[i] - a[i-1]));
     }
+    cout<< 2 * gcd <<endl;
 }

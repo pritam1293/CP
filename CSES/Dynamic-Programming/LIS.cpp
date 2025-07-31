@@ -13,7 +13,7 @@ int main() {
 }
 
 int search(vector<int> &lis, int val) {
-    int low = 0, high = lis.size();
+    int low = 0, high = lis.size()-1;
     int idx = high;
     while(low <= high) {
         int mid = (low + high) / 2;

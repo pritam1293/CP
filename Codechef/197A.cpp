@@ -17,13 +17,16 @@ int32_t main() {
 void solve() {
     int n;
     cin>>n;
-    vector<int> a(n);
+    int cnt = 0;
     for(int i = 0; i < n; i++) {
-        cin>>a[i];
+        int x;
+        cin>>x;
+        if(x%2) cnt++;
     }
-    reverse(a.begin(), a.end());
-    vector<int> arr = {a[0]};
-    for(int i = 1; i < n; i++) {
-        if(a[i])
+    if(cnt == 1) {
+        cout<<"YES"<<endl;
+    }
+    else {
+        cout<<"NO"<<endl;
     }
 }

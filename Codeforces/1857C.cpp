@@ -17,13 +17,15 @@ int32_t main() {
 void solve() {
     int n;
     cin>>n;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
+    int size = n*(n-1)/2;
+    vector<int> a(size);
+    for(int i = 0; i < size; i++) {
         cin>>a[i];
     }
-    reverse(a.begin(), a.end());
-    vector<int> arr = {a[0]};
-    for(int i = 1; i < n; i++) {
-        if(a[i])
+    sort(a.begin(), a.end());
+    for(int i = 0; i < size; i += n) {
+        cout<<a[i]<<" ";
+        n--;
     }
+    cout<<(int)1e9<<endl;
 }
