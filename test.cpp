@@ -9,52 +9,36 @@ int32_t main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-char findChar(int level, int pos, vector<int> &lengths, string &s) {
-    if(level == 0ll) return s[pos];
-    int left = lengths[level-1ll];
-    int dollar = level;
-    int right = left + dollar;
-
-    if(pos < left) {
-        return findChar(level-1ll, pos, lengths, s);
+long long numOfSubsequences(string s) {
+    int n = s.size();
+    vector<long long> lc(n);
+    int l = 0;
+    if(s[0] == 'L') l++;
+    for(int i = 1; i < n; i++) {
+        if(s[i] == 'L') l++;
+        if(s[i] == 'C') {
+            lc[i] = lc[i-1] + (long long)l;
+        }
+        else lc[i] = lc[i-1];
     }
-    else if(pos < right) {
-        return '$';
+    cout<<lc[n-1]<<endl;
+    vector<long long> lct(n);
+    for(int i = 1; i < n; i++) {
+        if(s[i] == 'T') {
+            lct[i] = lct[i-1] + lc[i];
+        }
+        else lct[i] = lct[i-1];
     }
-    else{
-        int rev_pos = pos - right;
-        int org_pos = left - 1ll - rev_pos;
-        return findChar(level-1ll, org_pos, lengths, s);
-    }
+    cout<<lct[n-1]<<endl;
+    return 0;
 }
 
 void solve() {
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    int q;
-    cin>>q;
-    vector<int> lengths;
-    lengths.push_back((int)s.size());
-    int level = 0;
-    int limit = 1e18;
-    while(lengths.back() < limit) {
-        int prev = lengths.back();
-        lengths.push_back(prev + level + 1ll + prev);
-        level++;
-    }
-    while(q--) {
-        int pos;
-        cin>>pos;
-        pos--;
-        int l = level;
-
-        while(l >= 0 && lengths[l] > pos) l--;
-        cout<<findChar(l + 1ll, pos, lengths, s)<<endl;
-    }
+    string s = "LCCTTLCT";
+    cout<<numOfSubsequences(s)<<endl;
 }
