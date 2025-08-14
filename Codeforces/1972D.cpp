@@ -113,12 +113,4 @@ void solve() {
             cout<< i+1 <<" "<< j+1 <<endl;
         }
     }
-    // for(auto& [e, arr] : mp) {
-    //     cout<<e<<" -> ";
-    //     for(auto& it : arr) {
-    //         cout<<it<<" ";
-    //     }
-    //     cout<<endl;
-    // }
-    // cout<<endl;
 }

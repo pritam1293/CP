@@ -17,10 +17,16 @@ int32_t main() {
 void solve() {
     int n;
     cin>>n;
-    vector<pair<int,int>> a(n);
+    vector<int> a(n);
     for(int i = 0; i < n; i++) {
-        cin>>a[i].first>>a[i].second;
-    } 
-    sort(a.begin(),a.end());
-
+        cin>>a[i];
+    }
+    int x = INT_MAX, y = INT_MAX, c = 0;
+    for(auto& e : a) {
+        if(x > y) swap(x, y);
+        if(e <= x) x = e;
+        else if(e <= y) y = e;
+        else x = e, c++;
+    }
+    cout<<c<<endl;
 }

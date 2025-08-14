@@ -15,12 +15,5 @@ int32_t main() {
 }
 
 void solve() {
-    int n;
-    cin>>n;
-    vector<pair<int,int>> a(n);
-    for(int i = 0; i < n; i++) {
-        cin>>a[i].first>>a[i].second;
-    } 
-    sort(a.begin(),a.end());
-
+    
 }

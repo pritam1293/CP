@@ -17,10 +17,23 @@ int32_t main() {
 void solve() {
     int n;
     cin>>n;
-    vector<pair<int,int>> a(n);
+    vector<int> a(n);
+    bool f = false;
+    set<int> st;
     for(int i = 0; i < n; i++) {
-        cin>>a[i].first>>a[i].second;
-    } 
-    sort(a.begin(),a.end());
-
+        cin>>a[i];
+        if(a[i] == 0) f = true;
+        if(a[i] != -1) st.insert(a[i]);
+    }
+    if(f) {
+        cout<<"NO"<<endl;
+        return;
+    }
+    if(st.size() <= 1) {
+        cout<<"YES"<<endl;
+    }
+    else {
+        cout<<"NO"<<endl;
+    }
+    
 }

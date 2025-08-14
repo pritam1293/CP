@@ -15,12 +15,14 @@ int32_t main() {
 }
 
 void solve() {
-    int n;
-    cin>>n;
-    vector<pair<int,int>> a(n);
-    for(int i = 0; i < n; i++) {
-        cin>>a[i].first>>a[i].second;
-    } 
-    sort(a.begin(),a.end());
-
+    int a, b, c, d;
+    cin>>a>>b>>c>>d;
+    int x = 5*a + b;
+    int y = 5*c + d;
+    if(x < y || (x - y) % 6 != 0) {
+        cout<<"NO"<<endl;
+    }
+    else {
+        cout<<"YES"<<endl;
+    }
 }

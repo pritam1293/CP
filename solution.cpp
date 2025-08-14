@@ -9,13 +9,11 @@ int32_t main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    cout<<25<<endl;
-    for(int i = 1; i <= 25; i++) {
-        cout<<i<<endl;
-    }
+    
 }

@@ -17,10 +17,15 @@ int32_t main() {
 void solve() {
     int n;
     cin>>n;
-    vector<pair<int,int>> a(n);
-    for(int i = 0; i < n; i++) {
-        cin>>a[i].first>>a[i].second;
-    } 
-    sort(a.begin(),a.end());
-
+    // cout<<n<<endl;
+    if(n%2 == 1) {
+        cout<< (n+1)/2 <<endl;
+    }
+    else {
+        int cnt = n/2;
+        if((n/2) % 2 == 0) n -= 2;
+        n /= 2;
+        cnt += (n+1)/2;
+        cout<<cnt<<endl;
+    }
 }
