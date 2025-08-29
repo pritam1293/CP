@@ -5,22 +5,23 @@ void solve();
 int32_t main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    vector<int> a = {4,5,6,7,0,1,2};
-    int n = a.size();
-    int low = 0, high = n-1;
-    int i = -1;
-    while(low <= high) {
-        int mid = (low + high) / 2;
-        if(a[mid] >= )
+    int n, m, l;
+    cin>>n>>m>>l;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) {
+        cin>>a[i];
     }
+    int ans = 0;
+    
+    cout<<ans<<endl;
 }

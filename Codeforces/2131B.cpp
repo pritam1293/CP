@@ -5,8 +5,8 @@ void solve();
 int32_t main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
     cin>>t;
@@ -15,12 +15,16 @@ int32_t main() {
 }
 
 void solve() {
-    vector<int> a = {4,5,6,7,0,1,2};
-    int n = a.size();
-    int low = 0, high = n-1;
-    int i = -1;
-    while(low <= high) {
-        int mid = (low + high) / 2;
-        if(a[mid] >= )
+    int n;
+    cin>>n;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) {
+        if(i % 2 == 0) a[i] = -1;
+        else a[i] = 3;
     }
+    if(a[n-1] == 3) a[n-1] = 2; 
+    for(auto& e : a) {
+        cout<<e<<" ";
+    }
+    cout<<endl;
 }
