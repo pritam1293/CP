@@ -9,7 +9,7 @@ int32_t main() {
     freopen("../../output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
@@ -41,6 +41,9 @@ void solve() {
     int n, q;
     cin>>n>>q;
     a = vector<int>(n);
+    for(int i = 0; i < n; i++) {
+        cin>>a[i];
+    }
     tree = vector<int>(4*n);
     build(0, n-1, 0);
     while(q--) {
