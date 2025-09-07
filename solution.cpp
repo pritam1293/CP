@@ -9,18 +9,35 @@ int32_t main() {
     freopen("output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    vector<int> a = {4,5,6,7,0,1,2};
-    int n = a.size();
-    int low = 0, high = n-1;
-    int i = -1;
-    while(low <= high) {
-        int mid = (low + high) / 2;
-        if(a[mid] >= )
+    int n;
+    cin>>n;
+    vector<vector<int>> a(n, vector<int>(n));
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            cin>>a[i][j];
+        }
+    }
+    for(int i = 0; i < n; i++) {
+        for(int j = i+1; j < n; j++) {
+            swap(a[i][j], a[j][i]);
+        }
+    }
+    int i = 0, j = n-1;
+    while(i < j) {
+        for(int k = 0; k < n; k++) {
+            swap(a[k][i], a[k][j]);
+        }
+        i++;j--;
+    }
+    for(auto& arr : a) {
+        for(auto& e : arr) {
+            cout<<e<<" ";
+        }
+        cout<<endl;
     }
 }

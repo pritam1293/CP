@@ -5,19 +5,18 @@ void solve();
 int32_t main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("../input.txt", "r", stdin);
+    freopen("../output.txt", "w", stdout);
 #endif
     int t=1;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    for(int i = 1; i <= 5; i++) {
-        for(int j = 1; j <= 5; j++) {
-            cout<<i*j + j-1<<" ";
-        }
-        cout<<endl;
-    }
-}   
+    int a, b, c;
+    cin>>a>>b>>c;
+    int sum = (a + b + c) / 3;
+    cout<<min({a, c, sum})<<endl;
+}

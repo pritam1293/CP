@@ -1,65 +1,20 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define int long long
 void solve();
-int main() {
+int32_t main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("../input.txt", "r", stdin);
-    freopen("../output.txt", "w", stdout);
+    freopen("../../input.txt", "r", stdin);
+    freopen("../../output.txt", "w", stdout);
 #endif
     int t=1;
-    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-vector<int> a, tree, lazy, ft;//ft - frenwick tree or BIT - Binary indexed tree
-int inf = 1e9 + 7;
-
-/*
-to get next index
-    1. 2's complement to get minus of index
-    2. AND this with index
-    3. Add it to index
-*/
-
-int getNextIndex(int i) {
-    return i + (i & -i);
-}
-
-void updateBIT(int val, int i, int n) {
-    while(i <= n) {
-        ft[i] += val;
-        i = getNextIndex(i);
-    }
-}
-
-void createTree(int n) {
-    ft = vector<int>(n+1);
-    for(int i = 1; i <= n; i++) {
-        updateBIT(a[i-1], i, n);
-    }
-}
-
-/*
-to get the parent
-    1. 2's complement to get minus of index
-    2. AND this with index
-    3. Subtract that from index
-*/
-
-int getParent(int i) {
-    return i - (i & -i);
-}
-
-int getSum(int i) {//sum in the range [0, i]
-    int sum = 0;
-    while(i > 0) {
-        sum += ft[i];
-        i = getParent(i);
-    }
-    return sum;
-}
+vector<int> a, tree, lazy;
+int inf = 1e18 + 7;
 
 void updateRange(int ql, int qr, int val, int low, int high, int pos) {
     if(low > high) return;
@@ -83,6 +38,7 @@ void updateRange(int ql, int qr, int val, int low, int high, int pos) {
             lazy[2*pos + 1] += val;
             lazy[2*pos + 2] += val;
         }
+        return;
     }
 
     //partial overlap
@@ -105,6 +61,16 @@ void buildTree(int low, int high, int pos) {
 }
 
 int rangeQuery(int qlow, int qhigh, int low, int high, int pos) {
+    if(low > high) return inf;
+    //lazy propagation at pos, if not processed process now
+    if(lazy[pos] != 0) {
+        tree[pos] += lazy[pos];
+        if(low != high) {
+            lazy[2*pos + 1] += lazy[pos];
+            lazy[2*pos + 2] += lazy[pos];
+        }
+        lazy[pos] = 0;
+    }
     //total overlap
     if(low >= qlow && high <= qhigh) {
         return tree[pos];
@@ -115,22 +81,36 @@ int rangeQuery(int qlow, int qhigh, int low, int high, int pos) {
     }
     //partial overlap
     int mid = (low + high) / 2;
-    return min(rangeQuery(qlow, qhigh, low, mid, 2 * pos + 1), rangeQuery(qlow, qhigh, mid+1, high, 2 * pos + 2));
+    return min(rangeQuery(qlow, qhigh, low, mid, 2 * pos + 1),
+                rangeQuery(qlow, qhigh, mid+1, high, 2 * pos + 2));
 }
 
+
 void solve() {
-    a = {1, 2, 3, 4, 5, 6, 7};
-    int n = a.size();
+    int n, q;
+    cin>>n>>q;
+    a = vector<int>(n);
     tree = vector<int>(4*n);
     lazy = vector<int>(4*n);
+    for(int i = 0; i < n; i++) {
+        cin>>a[i];
+    }
     buildTree(0, n-1, 0);
-
-    // int q;
-    // cin>>q;
-    // while(q--) {
-    //     int x, y;
-    //     cin>>x>>y;
-    //     x--;y--;
-    //     cout<<rangeQuery(x, y, 0, n-1, 0)<<endl;
-    // }
+    while(q--) {
+        int op;
+        cin>>op;
+            if(op == 1) {
+            //update
+            int k, u;
+            cin>>k>>u;
+            updateRange(k-1, k-1, u - a[k-1], 0, n-1, 0);
+            a[k-1] = u;
+        }
+        else {
+            //query
+            int i, j;
+            cin>>i>>j;
+            cout<<rangeQuery(i-1, j-1, 0, n-1, 0)<<endl;
+        }
+    }
 }
