@@ -51,11 +51,7 @@ CP/
 ├── LeetCode/                   # Selected LeetCode problems
 ├── NITR Contest/               # NITR specific contest problems
 ├── Picture-References-CP/      # Visual references and diagrams
-├── Tree-Basics-CF/             # Tree algorithm fundamentals
-├── input.txt                   # Input file for testing
-├── output.txt                  # Output file for testing
-├── solution.cpp                # Main testing/solution template
-└── test.cpp                    # Additional testing template
+└── Tree-Basics-CF/             # Tree algorithm fundamentals
 ```
 
 ## Platforms Covered
@@ -200,16 +196,18 @@ void solve() {
 ### Compilation and Testing
 
 ```bash
-g++ -o solution solution.cpp
-./solution
+g++ -o program_name source_file.cpp
+./program_name
 ```
+
+For local development, create your own `solution.cpp` and `test.cpp` files for testing purposes.
 
 ## File Structure
 
 - **Source Files**: `.cpp` files containing problem solutions
-- **Executable Files**: `.exe` files (compiled binaries for Windows)
-- **Input/Output**: `input.txt` and `output.txt` for local testing
-- **Testing Templates**: `solution.cpp` and `test.cpp` serve as testing/solution templates
+- **Executable Files**: `.exe` files (compiled binaries for Windows) - ignored in git
+- **Input/Output**: `input.txt` and `output.txt` for local testing - ignored in git
+- **Testing Templates**: Local `solution.cpp` and `test.cpp` files for development - ignored in git
 - **Organization**: Problems organized by platform and contest/topic
 
 ## Contributing
