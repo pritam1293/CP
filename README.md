@@ -68,16 +68,12 @@ Contains solutions from AtCoder Beginner Contests (ABC) and regular contests. Pr
 
 Comprehensive collection of Codeforces solutions spanning various contest types and difficulty levels.
 
-- **Contest Range**: Problems from contests 276C to 2136C
-- **Problem Types**: Constructive algorithms, Graph theory, Number theory, DP
 - **File Format**: `{contest_id}{problem}.cpp` (e.g., `2136A.cpp`)
 
 ### CodeChef
 
 Solutions from CodeChef contests including Long Challenge, Cook-Off, and Lunchtime contests.
 
-- **Contest Types**: Starters, Long Challenge, Cook-Off
-- **Contest Range**: Contest 165 - Contest 200, Starters 190
 - **File Format**: `{contest_id}{problem}.cpp` or `CC{contest}{problem}.cpp`
 
 ### CSES Problem Set
