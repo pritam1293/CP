@@ -189,12 +189,39 @@ void solve() {
 
 ### Compilation and Testing
 
+This repository uses **MinGW-w64** (Minimalist GNU for Windows) as the primary C++ compiler toolchain, which provides a complete runtime environment for gcc to support binaries native to Windows 64-bit and 32-bit operating systems.
+
+#### Recommended Compiler Setup
+
+- **Compiler**: MinGW-w64 GCC compiler
+- **Standard**: C++17 or higher for optimal compatibility with competitive programming features
+- **Documentation**: [MinGW-w64 Official Website](https://www.mingw-w64.org/)
+- **Installation Guide**: [MinGW-w64 Downloads](https://www.mingw-w64.org/downloads/)
+
+#### Compilation Commands
+
 ```bash
+# Basic compilation
 g++ -o program_name source_file.cpp
+
+# Optimized compilation for competitive programming
+g++ -std=c++17 -O2 -Wall -Wextra -o program_name source_file.cpp
+
+# Debug compilation with additional flags
+g++ -std=c++17 -g -DDEBUG -Wall -Wextra -o program_name source_file.cpp
+```
+
+#### Execution
+
+```bash
+# On Windows
+program_name.exe
+
+# On Unix-like systems
 ./program_name
 ```
 
-For local development, create your own `solution.cpp` and `test.cpp` files for testing purposes.
+For local development, create your own `solution.cpp` and `test.cpp` files for testing purposes. The MinGW-w64 toolchain provides excellent performance for competitive programming with fast compilation times and efficient binary generation.
 
 ## File Structure
 
