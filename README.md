@@ -60,8 +60,6 @@ CP/
 
 Contains solutions from AtCoder Beginner Contests (ABC) and regular contests. Problems are organized by contest number and difficulty level.
 
-- **Contest Range**: ABC 378 - ABC 422, Regular contests 391-419
-- **Problem Types**: Implementation, Mathematics, Graph Theory, Dynamic Programming
 - **File Format**: `{contest}{problem}.cpp` (e.g., `abc384A.cpp`)
 
 ### Codeforces
