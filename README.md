@@ -1,6 +1,6 @@
 # Competitive Programming Solutions Repository
 
-This repository contains a comprehensive collection of competitive programming solutions across multiple platforms including Codeforces, CodeChef, AtCoder, CSES, and LeetCo---
+This repository contains a comprehensive collection of competitive programming solutions across multiple platforms including Codeforces, Codechef, AtCoder, CSES, and Leetcode, Interviwebit
 
 **Note**: This repository represents an ongoing journey in competitive programming, with solutions spanning multiple years of contests and practice across various platforms. The collection continues to grow with participation in new contests and exploration of advanced algorithmic concepts. It serves as both a showcase of problem-solving journey and a reference for algorithms and data structures commonly used in competitive programming.
 
