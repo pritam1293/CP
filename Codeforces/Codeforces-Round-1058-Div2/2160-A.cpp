@@ -9,35 +9,24 @@ int32_t main() {
     freopen("../../output.txt", "w", stdout);
 #endif
     int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
-}
-
-int f(int n) {
-    int sum = 0;
-    while(n) {
-        sum += n % 10;
-        n /= 10;
-    }
-    return sum;
 }
 
 void solve() {
     int n;
     cin>>n;
-    vector<int> a(n+1);
-    a[0] = 1;
-    a[1] = 1;
-    for(int i = 2; i < n; i++) {
-        for(int j = 0; j < i; j++) {
-            a[i] += a[j];
-        }
-        a[i] = f(a[i]);
-    }
-    int sum = 0;
+    vector<int> a(n);
+    vector<bool> vis(110, false);
     for(int i = 0; i < n; i++) {
-        sum += a[i];
+        cin>>a[i];
+        vis[a[i]] = true;
+    }   
+    for(int i = 0; i < 110; i++) {
+        if(!vis[i]) {
+            cout<<i<<endl;
+            return;
+        }
     }
-    cout<<sum<<endl;
 }

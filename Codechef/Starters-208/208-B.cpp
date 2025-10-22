@@ -9,35 +9,32 @@ int32_t main() {
     freopen("../../output.txt", "w", stdout);
 #endif
     int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-int f(int n) {
-    int sum = 0;
-    while(n) {
-        sum += n % 10;
-        n /= 10;
-    }
-    return sum;
-}
-
 void solve() {
-    int n;
-    cin>>n;
-    vector<int> a(n+1);
-    a[0] = 1;
-    a[1] = 1;
-    for(int i = 2; i < n; i++) {
-        for(int j = 0; j < i; j++) {
-            a[i] += a[j];
-        }
-        a[i] = f(a[i]);
-    }
-    int sum = 0;
+    int n, x, k;
+    cin>>n>>x>>k;
+    priority_queue<int> pq;
     for(int i = 0; i < n; i++) {
-        sum += a[i];
+        int v;
+        cin>>v;
+        pq.push(v);
     }
-    cout<<sum<<endl;
+    while(k) {
+        x += 100;
+        pq.pop();
+        k--;
+    }
+    int rank = 0;
+    while(!pq.empty()) {
+        if(pq.top() > x) {
+            rank++;
+            pq.pop();
+        }
+        else break;
+    }
+    cout<< rank + 1 <<endl;
 }

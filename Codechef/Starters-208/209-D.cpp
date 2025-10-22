@@ -9,19 +9,11 @@ int32_t main() {
     freopen("../../output.txt", "w", stdout);
 #endif
     int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    string s;
-    cin>>s;
-    int n = s.size();
-    for(int i = 0; i < n/2; i++) {
-        cout<<s[i];
-    }
-    for(int i = n/2 + 1; i < n; i++) {
-        cout<<s[i];
-    }
+    
 }
