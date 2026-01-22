@@ -9,18 +9,19 @@ int32_t main() {
     freopen("../../output.txt", "w", stdout);
 #endif
     int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
 void solve() {
-    int n;
-    cin>>n;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin>>a[i];
+    int s, k, m;
+    cin>>s>>k>>m;
+    int n = m / k;
+    int rem = m % k;
+    int curr = s;
+    if (k < s && n % 2 != 0) {
+        curr = k;
     }
-    map<int, vector<int>> seven, five, three;
-    
+    cout<<max(0LL, curr - rem)<<endl;
 }

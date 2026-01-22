@@ -30,7 +30,7 @@ int getNextIndex(int i) {
 void updateBIT(int val, int i, int n) {
     while(i <= n) {
         ft[i] += val;
-        i = getNextIndex(i);
+        i = getNetIndex(i);
     }
 }
 

@@ -9,7 +9,7 @@ int32_t main() {
     freopen("../../output.txt", "w", stdout);
 #endif
     int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)  solve();
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
@@ -17,10 +17,10 @@ int32_t main() {
 void solve() {
     int n;
     cin>>n;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin>>a[i];
+    if(n <= 3) {
+        cout<<n<<endl;
     }
-    map<int, vector<int>> seven, five, three;
-    
+    else {
+        cout<< n % 2 <<endl;
+    }
 }

@@ -14,32 +14,66 @@ int32_t main() {
     cerr << "time: " << (float)clock() / CLOCKS_PER_SEC << endl; return 0;
 }
 
-struct pair {
-    int mx;
-    int mn;
-};
+vector<vector<int>> prefix, suffix;
+
+bool check(int l, int r, int n) {
+    int left = -1, right = n+1;
+    int low = 0, high = n-1, mid;
+    while(low <= high) {
+        mid = (low + high) / 2;
+        if(prefix[mid][0] >= l && prefix[mid][1] <= r) {
+            left = mid;
+            low = mid+1;
+        }
+        else high = mid-1;
+    }
+    low = 0; high = n-1;
+    while(low <= high) {
+        mid = (low + high) / 2;
+        if(suffix[mid][0] >= l && suffix[mid][1] <= r) {
+            right = mid;
+            high = mid-1;
+        }
+        else low = mid+1;
+    }
+    return left >= right;
+}
 
 void solve() {
     int n;
     cin>>n;
-    vector<vector<int>> grid(2, vector<int>(n));
-    for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < n; j++) {
-            cin>>grid[i][j];
+    vector<vector<int>> a(2, vector<int>(n));
+    for(auto& it : a) {
+        for(auto& e : it) {
+            cin>>e;
         }
     }
-    vector<pair> prefix(n), suffix(n);
-    prefix[0].mn = grid[0][0];
-    prefix[0].mx = grid[0][0];
+    prefix = vector<vector<int>>(n, vector<int>(2));
+    prefix[0][0] = a[0][0];
+    prefix[0][1] = a[0][0];
     for(int i = 1; i < n; i++) {
-        prefix[i].mn = min(prefix[i-1].mn, grid[0][i]);
-        prefix[i].mx = max(prefix[i-1].mx, grid[0][i]);
+        prefix[i][0] = min(prefix[i-1][0], a[0][i]);
+        prefix[i][1] = max(prefix[i-1][1], a[0][i]);
     }
-    suffix[n-1].mn = gird[1][n-1];
-    suffix[n-1].mx = gird[1][n-1];
+    suffix = vector<vector<int>>(n, vector<int>(2));
+    suffix[n-1][0] = a[1][n-1];
+    suffix[n-1][1] = a[1][n-1];
     for(int i = n-2; i >= 0; i--) {
-        suffix[i].mn = min(suffix[i+1].mn, grid[1][i]);
-        suffix[i].mx = max(suffix[i+1].mx, grid[1][i]);
+        suffix[i][0] = min(suffix[i+1][0], a[1][i]);
+        suffix[i][1] = max(suffix[i+1][1], a[1][i]);
     }
-    int left_min = 1e9, left_max = 
+    int ans = 0;
+    for(int l = 1; l <= 2*n; l++) {
+        int low = l, high = 2*n, r = 2*n + 1, mid;
+        while(low <= high) {
+            mid = (low + high) / 2;
+            if(check(l, mid, n)) {
+                r = mid;
+                high = mid-1;
+            }
+            else low = mid+1;
+        }
+        ans += 2*n - r + 1;
+    }
+    cout<<ans<<endl;
 }
