@@ -1,0 +1,6 @@
+some of the shortcut phrases for the snipperts
+
+1. c -> normal snippet without any dirctory change[input.txt]
+2. cp -> snippet with one parent folder jump [../input.txt]
+3. cpp -> snippet with 2 jump from the current folder [../../input.txt]
+4. v -> normal integer vector array read of size n
